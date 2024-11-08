@@ -4,11 +4,65 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+datasource db {
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
+}
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+enum SubscriptionCategory {
+  FREE       // Basic access with limited features
+  PREMIUM    // Extended access with advanced analytics and more features
+  BUSINESS   // Full access, ideal for teams or businesses
 }
+
+enum PaymentMethod {
+  CARD        // Payment by credit or debit card
+  CASH        // Cash transactions
+  NETBANKING  // Online banking transfers
+}
+
+enum TransactionCategory {
+  GROCERIES
+  ENTERTAINMENT
+  TRANSPORT
+  UTILITIES
+  OTHERS
+}
+
+model User {
+  id               String         @id @default(cuid())
+  email            String         @unique
+  isSubscribed     Boolean        @default(false)
+  subscriptionEnds DateTime?
+  subscription     Subscription?  @relation(fields: [subscriptionId], references: [subscriptionId])
+  subscriptionId   String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  Transactions     Transactions[]
+}
+
+model Subscription {
+  subscriptionId   String         @id @default(cuid())
+  planName         SubscriptionCategory @default(FREE)
+  maxTransactions  Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  users            User[]
+}
+
+model Transactions {
+  id              String            @id @default(cuid())
+  user            User              @relation(fields: [userId], references: [id])
+  userId          String
+  paymentMethod   PaymentMethod 
+  paymentFor      String
+  amount          Int
+  transactionDate DateTime          
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  category        TransactionCategory
+}
+
