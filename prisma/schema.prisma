@@ -58,7 +58,6 @@ model Transactions {
   paymentMethod   PaymentMethod
   paymentFor      String
   amount          Int
-  transactionDate DateTime
   createdAt       DateTime            @default(now())
   updatedAt       DateTime            @updatedAt
   category        TransactionCategory

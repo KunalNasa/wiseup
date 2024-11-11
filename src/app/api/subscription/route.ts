@@ -10,7 +10,7 @@ export async function POST(req : NextRequest) {
     if(!userId){
         return NextResponse.json({
             error : "Unauthorized user"
-        }, {status : 400});
+        }, {status : 401});
     }
     try {
         const user = await prisma.user.findUnique({
@@ -23,7 +23,7 @@ export async function POST(req : NextRequest) {
                 error : "No user found"
             }, {status : 404});
         }
-        
+
         // payment method here
 
         const addSubscription = await prisma.subscription.create({data : {
@@ -52,11 +52,13 @@ export async function POST(req : NextRequest) {
                 subscriptionEnds: updatedUser.subscriptionEnds,
               });
         }
-        
-    } catch (error : any) {
-        console.error("Internal server error in subscribing user", error.stack);
         return NextResponse.json({
-            error : error.message
+            error: "Subscription update failed",
+        }, { status: 400 });
+    } catch (error : any) {
+        console.error("Internal server error in subscribing user", error.message);
+        return NextResponse.json({
+            error : error.stack
         }, {status : 500});
     }
 }
@@ -66,7 +68,7 @@ export async function GET(req:NextRequest) {
     if(!userId){
         return NextResponse.json({
             error : "Unauthorised user"
-        }, {status : 400});
+        }, {status : 401});
     }
     try {
         const user = await prisma.user.findUnique({
@@ -84,7 +86,7 @@ export async function GET(req:NextRequest) {
             }, {status : 404});
         }
         const now = new Date();
-        if(user.subscriptionEnds && user.subscriptionEnds > now){
+        if(user.subscriptionEnds && user.subscriptionEnds < now){
             await prisma.user.update({
                 where : {
                     id : userId,
@@ -101,10 +103,9 @@ export async function GET(req:NextRequest) {
             subscriptionEnds: user.subscriptionEnds,
           });
     } catch (error : any) {
-        console.error("Internal server error in updating user subscription get", error.stack);
+        console.error("Internal server error in updating user subscription get", error.message);
         return NextResponse.json({
-            error : error.message,
+            error : error.stack,
         }, {status : 500});
-        
     }
 }

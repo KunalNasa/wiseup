@@ -3,26 +3,16 @@ import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { TransactionCategory, PaymentMethod } from "@prisma/client";
-
-export async function PUT(req:NextRequest, {params} : {params : {id : string}}) {
+export async function POST(req:NextRequest) {
     const {userId} = await auth();
+
     if(!userId){
         return NextResponse.json({
             error : "Unauthorised user"
-        }, {status : 401});
+        }, {status : 401})
     }
+    
     try {
-        const transactionId = params.id;
-        const transaction = await prisma.transactions.findUnique({
-            where : {
-                id : transactionId
-            }
-        })
-        if(!transaction){
-            return NextResponse.json({
-                error : "No transaction found with this transaction id"
-            }, {status : 404})
-        }
         const {paymentMethod, paymentFor, amount, category} = await req.json();
         if(!paymentFor || !paymentMethod || !amount || !category){
             return NextResponse.json({
@@ -40,24 +30,25 @@ export async function PUT(req:NextRequest, {params} : {params : {id : string}}) 
                 error: "Invalid payment method"
             }, { status: 400 });
         }
-        const updateTransaction = await prisma.transactions.update({
-            where : {
-                id : transactionId
-            },
+        const addTransactions = await prisma.transactions.create({
             data : {
+                userId,
+                amount,
                 paymentMethod,
                 paymentFor,
-                amount,
                 category
             }
-        })
-        if(!updateTransaction){
+        });
+        if(addTransactions){
             return NextResponse.json({
-                error : "Failed to update transaction"  
-            }, {status : 400});
+                transaction : addTransactions
+            }, {status : 200})
         }
+        return NextResponse.json({
+            error : "Failed to add transaction"
+        }, {status : 400});
     } catch (error : any) {
-        console.error("Internal server error in update transactions", error.message);
+        console.error("Internal server error in creating a transaction", error.message);
         return NextResponse.json({
             error : error.stack
         }, {status : 500});
