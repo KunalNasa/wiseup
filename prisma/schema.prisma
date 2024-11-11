@@ -12,11 +12,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum SubscriptionCategory {
-  FREE       // Basic access with limited features
-  PREMIUM    // Extended access with advanced analytics and more features
-  BUSINESS   // Full access, ideal for teams or businesses
-}
+// enum SubscriptionCategory {
+//   FREE       // Basic access with limited features
+//   PREMIUM    // Extended access with advanced analytics and more features
+// }
 
 enum PaymentMethod {
   CARD        // Payment by credit or debit card
@@ -37,21 +36,12 @@ model User {
   email            String         @unique
   isSubscribed     Boolean        @default(false)
   subscriptionEnds DateTime?
-  subscription     Subscription?  @relation(fields: [subscriptionId], references: [subscriptionId])
-  subscriptionId   String?
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
   Transactions     Transactions[]
 }
 
-model Subscription {
-  subscriptionId   String         @id @default(cuid())
-  planName         SubscriptionCategory @default(FREE)
-  maxTransactions  Int
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-  users            User[]
-}
+
 
 model Transactions {
   id              String            @id @default(cuid())
