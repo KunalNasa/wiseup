@@ -3,35 +3,62 @@ import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { TransactionCategory, PaymentMethod } from "@prisma/client";
-export async function POST(req:NextRequest) {
-    const {userId} = await auth();
 
-    if(!userId){
+export async function POST(req: NextRequest) {
+    const { userId } = await auth();
+
+    if (!userId) {
         return NextResponse.json({
-            error : "Unauthorised user"
-        }, {status : 401})
+            error: "Unauthorized user"
+        }, { status: 401 });
     }
-    
+
     try {
-        const {paymentMethod, paymentFor, amount, category} = await req.json();
-        if(!paymentFor || !paymentMethod || !amount || !category){
+        const { paymentMethod, paymentFor, amount, category } = await req.json();
+        if (!paymentFor || !paymentMethod || !amount || !category) {
             return NextResponse.json({
-                error : "Incomplete field"
-            }, {status : 400});
+                error: "Incomplete field"
+            }, { status: 400 });
         }
+
         if (!Object.values(TransactionCategory).includes(category as TransactionCategory)) {
             return NextResponse.json({
                 error: "Invalid transaction category"
             }, { status: 400 });
         }
-        
+
         if (!Object.values(PaymentMethod).includes(paymentMethod as PaymentMethod)) {
             return NextResponse.json({
                 error: "Invalid payment method"
             }, { status: 400 });
         }
+
+        // Get the start of the current day (midnight) to check daily transactions
+        const startOfDay = new Date();
+        startOfDay.setHours(0, 0, 0, 0);
+
+        const transactionCount = await prisma.transactions.count({
+            where: {
+                userId,
+                createdAt: {
+                    gte: startOfDay
+                }
+            }
+        });
+
+        const user = await prisma.user.findUnique({
+            where: { id: userId }
+        });
+
+        if (transactionCount >= 5 && !user?.isSubscribed) {
+            return NextResponse.json({
+                error: "Cannot add more than five transactions in free model. Please buy premium plan for adding unlimited transactions."
+            }, { status: 403 });
+        }
+
+        // Create the transaction
         const addTransactions = await prisma.transactions.create({
-            data : {
+            data: {
                 userId,
                 amount,
                 paymentMethod,
@@ -39,18 +66,69 @@ export async function POST(req:NextRequest) {
                 category
             }
         });
-        if(addTransactions){
-            return NextResponse.json({
-                transaction : addTransactions
-            }, {status : 200})
-        }
+
         return NextResponse.json({
-            error : "Failed to add transaction"
-        }, {status : 400});
-    } catch (error : any) {
+            transaction: addTransactions
+        }, { status: 200 });
+
+    } catch (error: any) {
         console.error("Internal server error in creating a transaction", error.message);
         return NextResponse.json({
-            error : error.stack
-        }, {status : 500});
+            error: error.stack
+        }, { status: 500 });
+    }
+}
+
+export async function GET(req:NextRequest) {
+    const { userId } = await auth();
+
+    if (!userId) {
+        return NextResponse.json({
+            error: "Unauthorized user"
+        }, { status: 401 });
+    }
+    const { searchParams } = new URL(req.url);
+    let page = parseInt(searchParams.get("page") || "1");
+    if(page <= 0 || page >= 1000){
+        page = 1;
+    }
+    const search = searchParams.get("search") || "";
+    const ITEMS_PER_PAGE = 5;
+    try {
+        const transactions = await prisma.transactions.findMany({
+            where : {
+                userId,
+                paymentFor : {
+                    contains: search,
+                    // comparison with case insesitive
+                    mode: "insensitive",
+                },
+            }, 
+            orderBy: { createdAt: "desc" },
+            take: ITEMS_PER_PAGE,
+            skip: (page - 1) * ITEMS_PER_PAGE,
+        })
+        const totalItems = await prisma.transactions.count({
+            where : {
+                userId,
+                paymentFor : {
+                    contains : search,
+                    mode : "insensitive"
+                }
+            }
+        })
+        const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+        return NextResponse.json({
+            transactions,
+            currentPage : page,
+            totalPages
+        })
+    } catch (error : any) {
+        console.error("Internal server error in fetching transactions", error.message)
+        return NextResponse.json(
+            { error: "Internal Server Error" },
+            { status: 500 }
+          );
     }
 }
