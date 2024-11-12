@@ -29,7 +29,7 @@ export async function GET(req:NextRequest) {
     } catch (error : any) {
         console.error("Internal server error in fetching previous subscriptions", error.message);
         return NextResponse.json({
-            error : error.stack,
+            error : error.message
         }, {status : 500});
     }
 }

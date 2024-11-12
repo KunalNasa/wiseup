@@ -58,7 +58,7 @@ export async function POST(req : NextRequest) {
     } catch (error : any) {
         console.error("Internal server error in subscribing user", error.message);
         return NextResponse.json({
-            error : error.stack
+            error : error.message
         }, {status : 500});
     }
 }
@@ -105,7 +105,7 @@ export async function GET(req:NextRequest) {
     } catch (error : any) {
         console.error("Internal server error in updating user subscription get", error.message);
         return NextResponse.json({
-            error : error.stack,
+            error : error.message
         }, {status : 500});
     }
 }

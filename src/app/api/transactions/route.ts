@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
     } catch (error: any) {
         console.error("Internal server error in creating a transaction", error.message);
         return NextResponse.json({
-            error: error.stack
+            error: error.message
         }, { status: 500 });
     }
 }

@@ -59,7 +59,7 @@ export async function PUT(req:NextRequest, {params} : {params : {id : string}}) 
     } catch (error : any) {
         console.error("Internal server error in update transactions", error.message);
         return NextResponse.json({
-            error : error.stack
+            error : error.message
         }, {status : 500});
     }
 }
