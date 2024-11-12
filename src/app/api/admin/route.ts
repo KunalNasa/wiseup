@@ -126,9 +126,14 @@ export async function DELETE(req : NextRequest) {
         id : clientId
       }
     });
-    return NextResponse.json({
-      deletedUser
-    }, {status : 200});
+    
+    const deleteUserFromClerk = await (await clerkClient()).users.deleteUser(clientId);
+    if(deleteUserFromClerk && deletedUser){
+      return NextResponse.json({
+        deletedUser
+      }, {status : 200});
+    }
+    
   } catch (error : any) {
     console.error("Internal server error in deleting user", error.message);
     return NextResponse.json({
