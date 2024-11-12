@@ -41,6 +41,7 @@ export async function POST(req: NextRequest) {
             where: {
                 userId,
                 createdAt: {
+                    // greater than or equal to
                     gte: startOfDay
                 }
             }

@@ -45,7 +45,7 @@ model User {
 
 model Subscription {
   id        String   @id @default(cuid())
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -53,7 +53,7 @@ model Subscription {
 
 model Transactions {
   id              String              @id @default(cuid())
-  user            User                @relation(fields: [userId], references: [id])
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId          String
   paymentMethod   PaymentMethod
   paymentFor      String
