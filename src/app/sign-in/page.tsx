@@ -58,14 +58,14 @@ export default function SignIn() {
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">
-            Sign In to Todo Master
+          <CardTitle className="text-3xl font-bold text-center">
+            Sign In to <span className="font-semibold text-indigo-500">WiseUp</span>
           </CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={submit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label className="text-lg font-semibold text-gray-700 py-2" htmlFor="email">Email</Label>
               <Input
                 type="email"
                 id="email"
@@ -75,7 +75,7 @@ export default function SignIn() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label className="text-lg font-semibold text-gray-700 py-2" htmlFor="password">Password</Label>
               <div className="relative">
                 <Input
                   type={showPassword ? "text" : "password"}
@@ -102,7 +102,7 @@ export default function SignIn() {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full text-lg py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md font-semibold">
               Sign In
             </Button>
           </form>

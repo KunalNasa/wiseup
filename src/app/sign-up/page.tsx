@@ -45,10 +45,10 @@ export default function SignUp() {
       });
 
       await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
-
+      setError("");
       setPendingVerification(true);
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
+      // console.error(JSON.stringify(err, null, 2));
       setError(err.errors[0].message);
     }
   }
@@ -71,8 +71,9 @@ export default function SignUp() {
         await setActive({ session: completeSignUp.createdSessionId });
         router.push("/dashboard");
       }
+      
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
+      console.log(JSON.stringify(err, null, 2));
       setError(err.errors[0].message);
     }
   }
@@ -81,15 +82,15 @@ export default function SignUp() {
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">
-            Sign Up for Todo Master
+          <CardTitle className="text-3xl font-bold text-center">
+            Sign Up for <span className="text-indigo-500">WiseUp</span>
           </CardTitle>
         </CardHeader>
         <CardContent>
           {!pendingVerification ? (
             <form onSubmit={submit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label className="text-lg text-gray-700 font-semibold" htmlFor="email">Email</Label>
                 <Input
                   type="email"
                   id="email"
@@ -99,7 +100,7 @@ export default function SignUp() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label className="text-lg text-gray-700 font-semibold" htmlFor="password">Password</Label>
                 <div className="relative">
                   <Input
                     type={showPassword ? "text" : "password"}
@@ -126,14 +127,16 @@ export default function SignUp() {
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
-              <Button type="submit" className="w-full">
+              <Button className="w-full text-lg py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md font-semibold" type="submit">
                 Sign Up
               </Button>
             </form>
           ) : (
             <form onSubmit={onPressVerify} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="code">Verification Code</Label>
+                <Label 
+                className="text-lg font-semibold text-gray-700 py-2"
+                htmlFor="code">Verification Code</Label>
                 <Input
                   id="code"
                   value={code}
@@ -147,7 +150,7 @@ export default function SignUp() {
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full text-lg py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md font-semibold">
                 Verify Email
               </Button>
             </form>

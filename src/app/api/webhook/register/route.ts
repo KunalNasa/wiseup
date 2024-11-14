@@ -12,10 +12,10 @@ export async function POST(req: Request) {
         );
     }
 
-    const headerPayload = headers();
-    const svix_id = (await headerPayload).get("svix-id");
-    const svix_timestamp = (await headerPayload).get("svix-timestamp");
-    const svix_signature = (await headerPayload).get("svix-signature");
+    const headerPayload = await headers();
+    const svix_id = headerPayload.get("svix-id");
+    const svix_timestamp = headerPayload.get("svix-timestamp");
+    const svix_signature = headerPayload.get("svix-signature");
 
     if (!svix_id || !svix_timestamp || !svix_signature) {
         return new Response("Error occured  -- no svix headers", { status: 400 });
@@ -68,7 +68,6 @@ export async function POST(req: Request) {
                 },
             });
             console.log("New user created:", newUser);
-
         } catch (error) {
             console.error("Error creating user in database:", error);
             return new Response("Error creating user", { status: 500 });

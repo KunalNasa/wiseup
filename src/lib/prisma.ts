@@ -12,6 +12,17 @@ const globalForPrisma = globalThis as unknown as {
 
 const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
 
+if (!globalForPrisma.prisma) {
+  globalForPrisma.prisma = prisma;
+  
+  // Attempt to connect and log success
+  prisma.$connect()
+    .then(() => console.log("DB connected successfully"))
+    .catch((error) => {
+      console.error("Failed to connect to the DB:", error);
+    });
+}
+console.log("DB connected successfully")
+// Export the Prisma client instance
 export default prisma;
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
