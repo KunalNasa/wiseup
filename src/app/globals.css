@@ -5,6 +5,49 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+@keyframes gradient-bg {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+.text-gradient {
+  background-image: linear-gradient(to right, #4f46e5, #ca37c3, #4f46e5);
+  background-size: 400% 400%; /* Extend background size for movement */
+  background-clip: text;
+  -webkit-background-clip: text; /* For Safari */
+  color: transparent; /* Hide original text color */
+  animation: gradient-bg 6s ease infinite;
+}
+@keyframes gradient-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-border {
+  background: linear-gradient(90deg, #6366F1, #EC4899, #6366F1);
+  background-size: 200% 200%;
+  animation: gradient-border 3s linear infinite;
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 2px solid transparent; /* 2px border */
+  padding: 2px; /* Space for the border effect */
+}
+
+.text-shadow {
+  text-shadow: 4px 4px 5px rgb(255, 247, 13); /* Adjust values as needed */
+}
 
 @layer base {
   :root {
