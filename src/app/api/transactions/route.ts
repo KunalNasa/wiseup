@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
 
     try {
         const { paymentMethod, paymentFor, amount, category } = await req.json();
+        // console.log(paymentFor, paymentMethod, amount, category);
         if (!paymentFor || !paymentMethod || !amount || !category) {
             return NextResponse.json({
                 error: "Incomplete field"
