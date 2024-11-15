@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
 
         if (transactionCount >= 5 && !user?.isSubscribed) {
             return NextResponse.json({
-                error: "Cannot add more than five transactions in free model. Please buy premium plan for adding unlimited transactions."
+                error: "Cannot add more than six transactions per day in free model. Please buy premium plan for adding unlimited transactions."
             }, { status: 403 });
         }
 
@@ -113,10 +113,10 @@ export async function GET(req:NextRequest) {
         const totalItems = await prisma.transactions.count({
             where : {
                 userId,
-                paymentFor : {
-                    contains : search,
-                    mode : "insensitive"
-                }
+                paymentFor: {
+                    contains: search,
+                    mode: "insensitive",
+                },
             }
         })
         const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
