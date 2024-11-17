@@ -13,6 +13,7 @@ export async function POST(req : NextRequest) {
         }, {status : 401});
     }
     try {
+        const {amount, paymentIntent} = await req.json();
         const user = await prisma.user.findUnique({
             where : {
                 id : userId
@@ -25,11 +26,14 @@ export async function POST(req : NextRequest) {
         }
 
         // payment method here
-
         const addSubscription = await prisma.subscription.create({data : {
-            userId
+            id : paymentIntent.toString(),
+            userId,
+            subscriptionAmount : amount
+
         }})
-        // fix it later
+
+        // fix it later (Bug : We can not deduct money without giving subscription, we need to ensure 99percent sucess rate);
         if(!addSubscription){
             return NextResponse.json({
                 error : "Failed to add subscription"
@@ -50,7 +54,7 @@ export async function POST(req : NextRequest) {
             return NextResponse.json({
                 message: "Subscription successful",
                 subscriptionEnds: updatedUser.subscriptionEnds,
-              });
+              }, {status : 200});
         }
         return NextResponse.json({
             error: "Subscription update failed",

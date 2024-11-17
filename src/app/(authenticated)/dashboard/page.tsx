@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { useDebounceValue } from "usehooks-ts";
 import { Pagination } from "@/components/Pagination";
+import Footer from "@/components/Footer";
 
 const Page = () => {
   
@@ -158,9 +159,9 @@ const Page = () => {
         <div className="my-5">
         <h3 className="text-3xl py-5 font-semibold text-indigo-500">Your Previous Transactions</h3>
         {allTransactions.length !== 0? 
-        <div>
+        <div className="min-h-[50vh]">
           {allTransactions.map((item, index) => (
-        <div key={index} className="p-4 my-1 bg-white border rounded-md shadow-sm hover:shadow-lg transition">
+        <div key={index} className="p-4  my-1 bg-white border rounded-md shadow-sm hover:shadow-lg transition">
           <div className="flex justify-between">
             <div className="font-semibold text-lg text-gray-800">{item.paymentFor}</div>
             <div className="text-sm text-gray-500">{item.paymentMethod}</div>
@@ -180,7 +181,7 @@ const Page = () => {
           </div>
         </div>
       ))}
-        </div> : <div className="font-semibold text-gray-500">No Transactions matched with search string</div>}
+        </div> : <div className="font-semibold text-gray-500 min-h-[50vh]">No Transactions matched with search string</div>}
         <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
@@ -188,6 +189,8 @@ const Page = () => {
     />
         </div>
       </div>
+      <Separator className="h-2 bg-indigo-600"/>
+      <Footer/>
       
     </div>
   );
