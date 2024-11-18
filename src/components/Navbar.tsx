@@ -44,9 +44,9 @@ export default function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem asChild>
-                    <Link href="/subscribe" className="flex items-center">
+                    <Link href="/premium" className="flex items-center">
                       <CreditCard className="mr-2 h-4 w-4" />
-                      <span>Subscribe</span>
+                      <span>Buy Premium</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => signOut()}>
