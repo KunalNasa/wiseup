@@ -71,8 +71,8 @@ model ExpenseSummary {
   user           User      @relation(fields: [userId], references: [id])
   userId         String
   date           DateTime  @default(now())
-  dailyTotal     Float     @default(0)
-  weeklyTotals   Json      // Stores an array of weekly summaries, or create a separate table if needed
-  categoryTotals Json      // Stores category-wise expenses summary
+  dailyTotal     Json?     // [ {amount : 500, date : 2/4/5}, {amount : 600, date : 4/5/6}..... ]
+  weeklyTotals   Json?      // Stores an array of weekly summaries, or create a separate table if needed
+  categoryTotals Json?      // Stores category-wise expenses summary
 
 }
