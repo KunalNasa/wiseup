@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useUser, useClerk } from "@clerk/nextjs";
-import { LogOut, CreditCard } from "lucide-react";
+import { LogOut, CreditCard, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -43,6 +43,12 @@ export default function Navbar() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                    <Link href="/profile" className="flex items-center">
+                      <UserRound className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/premium" className="flex items-center">
                       <CreditCard className="mr-2 h-4 w-4" />
@@ -53,6 +59,7 @@ export default function Navbar() {
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Sign out</span>
                   </DropdownMenuItem>
+                  
                   
                 </DropdownMenuContent>
               </DropdownMenu>
