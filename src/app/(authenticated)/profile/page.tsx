@@ -7,10 +7,10 @@ const page = () => {
     <div>
         <MainContainer/>
         <div className="flex">
-            <div className="w-3/4">
+            <div className="w-7/12">
             <DailyProgress/>
             </div>
-            <div className="w-1/4">
+            <div className="w-5/12 ">
             <CategoryDivision/>
 
             </div>

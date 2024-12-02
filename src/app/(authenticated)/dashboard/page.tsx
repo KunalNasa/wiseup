@@ -2,7 +2,6 @@
 
 import Navbar from "@/components/Navbar";
 import { useToast } from "@/hooks/use-toast";
-import { useUser } from "@clerk/nextjs";
 import { PaymentMethod, TransactionCategory } from "@prisma/client";
 import { useEffect, useState } from "react";
 import useHandleDash from "@/hooks/useHandleDash";
@@ -14,7 +13,7 @@ import Footer from "@/components/Footer";
 
 const Page = () => {
   
-  const { user } = useUser();
+  // const { user } = useUser();
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm] = useDebounceValue(searchTerm, 300);
@@ -34,7 +33,7 @@ const Page = () => {
   });
   type TransactionData = {
     paymentFor : string,
-    amount : Number,
+    amount : number,
     paymentMethod : PaymentMethod,
     category : TransactionCategory,
 };
