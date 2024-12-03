@@ -4,7 +4,7 @@ import Image from 'next/image'
 const KeyFeatures = () => {
   return (
     <div className="w-full py-20 px-6 rounded-t-[2.5rem] bg-slate-100">
-      <h2 className="text-center text-5xl font-bold text-indigo-600 mb-8">Why Choose WiseUp?</h2>
+      <h2 className="text-center text-5xl py-2 font-bold text-indigo-500 mb-8">Why Choose WiseUp?</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10">
         {features.map((feature, index) => (
           <div

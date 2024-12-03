@@ -1,6 +1,6 @@
 'use client';
 
-import Navbar from "@/components/Navbar";
+// import Navbar from "@/components/Navbar";
 import { useToast } from "@/hooks/use-toast";
 import { PaymentMethod, TransactionCategory } from "@prisma/client";
 import { useEffect, useState } from "react";
@@ -72,8 +72,7 @@ const Page = () => {
   // console.log(allTransactions);
   return (
     <div>
-      <Separator className="h-2 bg-indigo-600" />
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="p-4 w-11/12 mx-auto rounded-md my-2">
       <div className="flex justify-between">
         <h1 className="text-2xl font-semibold w-full text-indigo-500">

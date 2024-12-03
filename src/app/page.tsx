@@ -2,15 +2,13 @@
 
 import Footer from "@/components/Footer";
 import MainContainer from "@/components/HomeComponents/MainContainer";
-import Navbar from "@/components/Navbar";
+// import Navbar from "@/components/Navbar";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 
 
 export default function Home() {
   return (
     <div>
-      <Separator className="h-2 bg-indigo-600"/>
-      <Navbar/>
       <MainContainer/>
       <Separator className="h-2 bg-indigo-600"/>
       <Footer/>

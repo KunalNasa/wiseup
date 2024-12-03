@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useUser, useClerk } from "@clerk/nextjs";
-import { LogOut, CreditCard, UserRound } from "lucide-react";
+import { LogOut, CreditCard, UserRound, LayoutDashboardIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -47,6 +48,12 @@ export default function Navbar() {
                     <Link href="/profile" className="flex items-center">
                       <UserRound className="mr-2 h-4 w-4" />
                       <span>Profile</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/dashboard" className="flex items-center">
+                      <LayoutDashboardIcon className="mr-2 h-4 w-4" />
+                      <span>Dashboard</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>

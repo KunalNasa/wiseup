@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { FaLinkedin, FaInstagram, FaTwitter, FaGithub } from 'react-icons/fa';
 const Footer = () => {
   return (
-    <footer className="bg-indigo-50 flex py-28">
+    <footer className="bg-indigo-50 w-full flex py-28">
         <div>
             <Image width={500} height={500} src="/Logo.svg" alt="Logo" />
         </div>
