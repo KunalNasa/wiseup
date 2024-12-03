@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { categoryData } from '@/lib/cronJobsData'; // Assuming you have some sample data or helper function
 import DoughnutChart from '../charts/DoughnutChart';
 import useCronData from '@/hooks/useCronData';
 
