@@ -3,7 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { TransactionCategory, PaymentMethod } from "@prisma/client";
 
-export async function PUT(req:NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(req: NextRequest,{ params }: { params: Promise<{ id: string }> }) {
     const {userId} = await auth();
     if(!userId){
         return NextResponse.json({
@@ -11,7 +11,8 @@ export async function PUT(req:NextRequest, { params }: { params: Promise<{ id: s
         }, {status : 401});
     }
     try {
-        const transactionId = (await params).id;
+        const {id} = await params;
+        const transactionId = id;
         const transaction = await prisma.transactions.findUnique({
             where : {
                 id : transactionId
