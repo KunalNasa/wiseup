@@ -6,10 +6,8 @@ import { PaymentMethod, TransactionCategory } from "@prisma/client";
 import { useEffect, useState } from "react";
 import useHandleDash from "@/hooks/useHandleDash";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 import { useDebounceValue } from "usehooks-ts";
 import { Pagination } from "@/components/Pagination";
-import Footer from "@/components/Footer";
 
 const Page = () => {
   
@@ -187,9 +185,6 @@ const Page = () => {
     />
         </div>
       </div>
-      <Separator className="h-2 bg-indigo-600"/>
-      <Footer/>
-      
     </div>
   );
 };

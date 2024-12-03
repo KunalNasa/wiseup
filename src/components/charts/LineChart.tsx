@@ -1,14 +1,34 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-'use client'
+'use client';
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
-import { dailyData } from '@/lib/cronJobsData';  // Assuming your dailyData is exported here
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 
 // Register chart.js components
 ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend);
 
-const LineChart: React.FC = () => {
+interface DailyData {
+  amount: number;
+  date: string;
+}
+
+interface LineChartProps {
+  dailyData: {
+    userId: string;
+    dailyTotal: DailyData[];
+    date: string;
+  };
+}
+
+const LineChart: React.FC<LineChartProps> = ({ dailyData }) => {
   // Prepare the data for the chart
   const labels = dailyData.dailyTotal.map((data) => {
     const date = new Date(data.date);
@@ -37,14 +57,21 @@ const LineChart: React.FC = () => {
       tooltip: {
         callbacks: {
           label: function (tooltipItem: any) {
-            return `Amount: ${tooltipItem.raw}`;
+            return `Amount: Rs ${tooltipItem.raw}`;
           },
         },
       },
     },
   };
 
-  return <Line data={data} options={options} />;
+  return (
+    <div>
+      <h2 className="text-center font-bold text-xl">Daily Expenses</h2>
+      <div className="my-4">
+        <Line data={data} options={options} />
+      </div>
+    </div>
+  );
 };
 
 export default LineChart;

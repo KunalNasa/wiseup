@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
@@ -21,7 +20,7 @@ interface CircularBarChartProps {
   };
 }
 
-const CircularBarChart: React.FC<CircularBarChartProps> = ({ categoryData }) => {
+const DoughnutChart: React.FC<CircularBarChartProps> = ({ categoryData }) => {
   // Extract categories and amounts from the categoryTotals data
   const latestCategoryData = categoryData.categoryTotals[categoryData.categoryTotals.length - 1];
   const categories = latestCategoryData?.categories || [];
@@ -34,9 +33,9 @@ const CircularBarChart: React.FC<CircularBarChartProps> = ({ categoryData }) => 
     labels: labels,
     datasets: [
       {
-        label: 'Category Expenses',
+        label: 'Weekly Category Expenses',
         data: data,
-        backgroundColor: ['#4F46E5', '#6D28D9', '#9333EA', '#EC4899'], // You can add more colors or randomize
+        backgroundColor: ['#6D28D9', '#EC4899','#4F46E5', '#9333EA'], // You can add more colors or randomize
         borderWidth: 0, // Remove the border for smoother appearance
       },
     ],
@@ -51,7 +50,7 @@ const CircularBarChart: React.FC<CircularBarChartProps> = ({ categoryData }) => 
       },
       tooltip: {
         callbacks: {
-          label: (tooltipItem: any) => `${tooltipItem.label}: $${tooltipItem.raw}`, // Custom tooltip label
+          label: (tooltipItem: any) => `${tooltipItem.label}: Rs ${tooltipItem.raw}`, // Custom tooltip label
         },
       },
     },
@@ -67,4 +66,4 @@ const CircularBarChart: React.FC<CircularBarChartProps> = ({ categoryData }) => 
   );
 };
 
-export default CircularBarChart;
+export default DoughnutChart;

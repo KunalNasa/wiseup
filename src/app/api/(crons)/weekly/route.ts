@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import prisma from "@/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
 
-export async function handler(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     // Calculate date range for the last week
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const lastWeek = new Date(today);
-    lastWeek.setDate(today.getDate() - 7);
+        today.setUTCHours(0, 0, 0, 0); // Set to start of day in UTC
+        const lastWeek = new Date(today);
+        lastWeek.setUTCDate(today.getUTCDate() - 7);
 
     // Fetch transactions grouped by userId, category, and week (using date ranges)
     const transactions = await prisma.transactions.groupBy({

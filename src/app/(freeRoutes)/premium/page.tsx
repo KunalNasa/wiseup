@@ -18,8 +18,6 @@ const page = () => {
           <PremiumCard/>
         </div>
       </div>
-      <Separator className="h-2 w-full bg-indigo-600" />
-        <Footer/>
     </div>
   )
 }

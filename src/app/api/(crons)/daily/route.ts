@@ -1,15 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import prisma from "@/lib/prisma";
 // import { auth } from "@clerk/nextjs/server";
 import { NextResponse, NextRequest } from "next/server";
 
-export async function handler(req: NextRequest) {
+export async function POST(req: NextRequest) {
     try {
         const today = new Date();
-        today.setHours(0, 0, 0, 0);
+        today.setUTCHours(0, 0, 0, 0); // Set to start of day in UTC
         const yesterDay = new Date(today);
-        yesterDay.setDate(today.getDate() - 1);
+        yesterDay.setUTCDate(today.getUTCDate() - 1); // Subtract 1 day in UTC
+
+        console.log('Today:', today);
+        console.log('Yesterday:', yesterDay);
+
 
         // Fetch daily transactions grouped by userId
         const dailyTransactions = await prisma.transactions.groupBy({
@@ -22,6 +24,7 @@ export async function handler(req: NextRequest) {
                 },
             },
         });
+        console.log(dailyTransactions);
         // o/p of above query is of type, [{userId : id, {sum : }}]
 
         for (const txn of dailyTransactions) {

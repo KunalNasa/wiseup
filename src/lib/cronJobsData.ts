@@ -26,13 +26,6 @@ export const dailyData = {
   }
 
 export const categoryData = {
-    "totalAmount": 200,
-    "weeklyTotals": [
-      {
-        "amount": 200,
-        "date": "2024-11-15T00:00:00.000Z"
-      }
-    ],
     "categoryTotals": [
       {
         "categories": [
@@ -50,5 +43,5 @@ export const categoryData = {
         "date": "2024-11-15T00:00:00.000Z"
       }
     ]
-  }
+}
   

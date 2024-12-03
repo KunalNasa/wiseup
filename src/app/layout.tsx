@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/Navbar";
 import { Separator } from "@radix-ui/react-dropdown-menu";
+import Footer from "@/components/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,6 +37,8 @@ export default function RootLayout({
           <Separator className="h-2 bg-indigo-600" />
           <Navbar/>
           {children}
+          <Separator className="h-2 bg-indigo-600"/>
+          <Footer/>
           <Toaster />
         </body>
       </html>
