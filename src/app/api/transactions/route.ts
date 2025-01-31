@@ -5,7 +5,6 @@ import { TransactionCategory, PaymentMethod } from "@prisma/client";
 
 export async function POST(req: NextRequest) {
     const { userId } = await auth();
-
     if (!userId) {
         return NextResponse.json({
             error: "Unauthorized user"
@@ -14,7 +13,7 @@ export async function POST(req: NextRequest) {
 
     try {
         const { paymentMethod, paymentFor, amount, category } = await req.json();
-        // console.log(paymentFor, paymentMethod, amount, category);
+
         if (!paymentFor || !paymentMethod || !amount || !category) {
             return NextResponse.json({
                 error: "Incomplete field"
@@ -41,7 +40,6 @@ export async function POST(req: NextRequest) {
             where: {
                 userId,
                 createdAt: {
-                    // greater than or equal to
                     gte: startOfDay
                 }
             }
@@ -68,6 +66,8 @@ export async function POST(req: NextRequest) {
             }
         });
 
+
+        
         return NextResponse.json({
             transaction: addTransactions
         }, { status: 200 });
@@ -82,7 +82,6 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req:NextRequest) {
     const { userId } = await auth();
-
     if (!userId) {
         return NextResponse.json({
             error: "Unauthorized user"

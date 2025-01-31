@@ -1,22 +1,22 @@
 import { PaymentMethod, TransactionCategory } from "@prisma/client";
 import { useCallback, useState } from "react";
 import { toast } from "./use-toast";
-
+type TransactionData = {
+    paymentFor : string,
+    amount : Number,
+    paymentMethod : PaymentMethod,
+    category : TransactionCategory,
+};
+type displayTransactionType = {
+    createdAt: string | number | Date;
+    paymentFor : string,
+    amount : Number,
+    paymentMethod : string,
+    category : string,
+}
 
 const useHandleDash = (debouncedSearchString : string) => {
-    type TransactionData = {
-        paymentFor : string,
-        amount : Number,
-        paymentMethod : PaymentMethod,
-        category : TransactionCategory,
-    };
-    type displayTransactionType = {
-        createdAt: string | number | Date;
-        paymentFor : string,
-        amount : Number,
-        paymentMethod : string,
-        category : string,
-    }
+    
     // for displaying transactions
     const [allTransactions, setallTransactions] = useState<displayTransactionType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +24,6 @@ const useHandleDash = (debouncedSearchString : string) => {
     const [totalPages, setTotalPages] = useState(1);
 
     const handleAddTransaction = async (data : TransactionData) => {
-        console.log(JSON.stringify(data));
         try {
             const response = await fetch('/api/transactions',
                 {
@@ -68,9 +67,7 @@ const useHandleDash = (debouncedSearchString : string) => {
                 })
             }
             const data = await response.json();
-            console.log(data);
             setallTransactions(data.transactions);
-            console.log(allTransactions);
             setCurrentPage(data.currentPage);
             setTotalPages(data.totalPages);
         } catch (error : any) {

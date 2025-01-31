@@ -27,7 +27,7 @@ export async function GET(req:NextRequest) {
     } catch (error) {
         console.log("Internal Server Error in fetch weekly data");
         return NextResponse.json({
-            error : "Internala server error",
+            error : "Internal server error",
         }, {status : 500});
     }
     

@@ -67,10 +67,8 @@ const Page = () => {
       category: "",
     });
   };
-  // console.log(allTransactions);
   return (
     <div>
-      {/* <Navbar /> */}
       <div className="p-4 w-11/12 mx-auto rounded-md my-2">
       <div className="flex justify-between">
         <h1 className="text-2xl font-semibold w-full text-indigo-500">

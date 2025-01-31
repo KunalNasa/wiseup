@@ -3,7 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { TransactionCategory, PaymentMethod } from "@prisma/client";
 
-export async function DELETE(req: NextRequest,{ params }: { params: Promise<{ id: string }> }) {
+export async function PATCH(req: NextRequest,{ params }: { params: Promise<{ id: string }> }) {
     const {userId} = await auth();
     if(!userId){
         return NextResponse.json({

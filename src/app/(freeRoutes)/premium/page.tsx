@@ -1,6 +1,4 @@
-import Footer from '@/components/Footer'
 import { PremiumCard } from '@/components/PremiumCard'
-import { Separator } from '@radix-ui/react-dropdown-menu'
 import React from 'react'
 
 const page = () => {

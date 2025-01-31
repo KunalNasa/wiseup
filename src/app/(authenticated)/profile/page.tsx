@@ -1,24 +1,12 @@
 'use client'
 import CategoryDivision from "@/components/Analytics/CategoryDivision"
 import DailyProgress from "@/components/Analytics/DailyProgress"
-import Footer from "@/components/Footer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useUser } from "@clerk/nextjs";
 
 
 const page = () => {
     const { user } = useUser();
-    // const handleSubmit = async () => {
-    //     fetch('http://localhost:3000/api/weekly', {
-    //         method: 'POST',
-    //       })
-    //         .then((res) => {
-    //           if (!res.ok) throw new Error(`Error: ${res.status}`);
-    //           return res.json(); // Parse the JSON response
-    //         })
-    //         .then((data) => console.log(data)) // Log the actual response data
-    //         .catch((err) => console.error(err.message));
-    // }
     const handleClick = async () =>{
         const response = await fetch('/api/fetch-daily');
         const body = await response.json();

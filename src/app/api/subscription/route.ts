@@ -31,7 +31,7 @@ export async function POST(req : NextRequest) {
 
         }})
 
-        // fix it later (Bug : We can not deduct money without giving subscription, we need to ensure 99percent sucess rate);
+        // fix it later (Bug : We can not deduct money without giving subscription, we need to ensure 99.99 percent sucess rate);
         if(!addSubscription){
             return NextResponse.json({
                 error : "Failed to add subscription"
