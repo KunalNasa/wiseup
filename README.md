@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WiseUp
+
+WiseUp is a transaction management SaaS application that helps users track monthly transactions and visualize spending analysis through interactive graphs. It serves as your friendly financial assistant, making personal finance management seamless and insightful.
+
+## Features
+
+- **Transaction Tracking:** Log and categorize monthly transactions effortlessly.
+- **Spending Analysis:** Visualize your financial data with interactive graphs.
+- **Budget Insights:** Get insights into your spending habits and set financial goals.
+- **User-Friendly UI:** A clean and intuitive interface built with Next.js for a smooth experience.
+
+## Tech Stack
+
+- **Frontend:** [Next.js](https://nextjs.org), TypeScript, Tailwind CSS
+- **State Management:** Zustand
+- **Data Fetching:** SWR / TanStack Query
+- **Authentication:** Clerk
+- **Payments:** Stripe
+- **Database:** PostgreSQL / MongoDB (as per implementation choice)
+- **Deployment:** Vercel / AWS
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+Ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (Latest LTS recommended)
+- npm / yarn / pnpm / bun (Choose your preferred package manager)
+
+### Installation
+Clone the repository and install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repo
+git clone https://github.com/yourusername/wiseup.git
+cd wiseup
+
+# Install dependencies
+npm install  # or yarn install or pnpm install or bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running the Development Server
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run dev  # or yarn dev or pnpm dev or bun dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000) in your browser to access the application.
 
-## Learn More
+## Environment Variables
+Create a `.env.local` file in the root directory and configure the necessary environment variables:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+DATABASE_URL=
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+WEBHOOK_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_PRIVATE_KEY=
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
+WiseUp is optimized for seamless deployment on [Vercel](https://vercel.com/) and other cloud platforms.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Deploy on Vercel
+The easiest way to deploy your Next.js app:
 
-## Deploy on Vercel
+1. Connect your GitHub repository to Vercel.
+2. Follow the deployment instructions.
+3. Set up environment variables in Vercel’s settings.
+4. Deploy and go live!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For more details, refer to the [Next.js Deployment Documentation](https://nextjs.org/docs/deployment).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contribution
+Contributions are welcome! If you'd like to contribute:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -m "Add feature"`).
+4. Push to your branch (`git push origin feature-branch`).
+5. Open a pull request.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+🚀 **WiseUp - Take control of your finances today!**
+
