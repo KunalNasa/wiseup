@@ -41,7 +41,6 @@ model User {
   updatedAt           DateTime       @updatedAt
   Transactions        Transactions[]
   SubscriptionsBought Subscription[]
-  ExpensesAnalytics   ExpenseSummary[]
 }
 
 model Subscription {
@@ -66,13 +65,3 @@ model Transactions {
   category        TransactionCategory
 }
 
-model ExpenseSummary {
-  id             Int       @id @default(autoincrement())
-  user           User      @relation(fields: [userId], references: [id])
-  userId         String
-  date           DateTime  @default(now())
-  dailyTotal     Json?     // [ {amount : 500, date : 2/4/5}, {amount : 600, date : 4/5/6}..... ]
-  weeklyTotals   Json?      // Stores an array of weekly summaries, or create a separate table if needed
-  categoryTotals Json?      // Stores category-wise expenses summary
-
-}
