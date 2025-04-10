@@ -1,24 +1,24 @@
-interface CategoryDivision {
+export interface CategoryDivision {
     _sum: {
         amount: number | null;
     };
     category: string;
 }
 
-interface PaymentMethodDivision {
+export interface PaymentMethodDivision {
     _sum: {
         amount: number | null;
     };
     paymentMethod: string;
 }
 
-interface TotalAmount {
+export interface TotalAmount {
     _sum: {
         amount: number | null;
     };
 }
 
-interface DatewiseSum {
+export interface DatewiseSum {
     [key: string]: number;
 }
 
@@ -26,6 +26,6 @@ export interface statsResponse {
         categoryDivisions: CategoryDivision[];
         paymentMethodDivisions: PaymentMethodDivision[];
         totalAmount: TotalAmount;
-        lastMonth: DatewiseSum;
+        lastYear: DatewiseSum;
         lastWeek: DatewiseSum;
 }

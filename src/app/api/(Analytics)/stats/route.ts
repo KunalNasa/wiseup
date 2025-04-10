@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { ApiResponse } from "@/types/ApiResponse.type";
 import { ErrorResponse } from "@/types/ErrorResponse.type";
 import { statsResponse } from "@/types/stats.type";
+import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 // Helper function to get sum by category
@@ -31,11 +32,11 @@ async function getTotalAmount(userId: string) {
 }
 
 // Helper function to get the monthly sum for the last 31 days
-async function getMonthlySum(userId: string) {
+async function getYearlySum(userId: string) {
     const monthlySum: { [key: string]: number } = {};
     const today = new Date();
     const thirtyOneDaysAgo = new Date();
-    thirtyOneDaysAgo.setDate(today.getDate() - 30);
+    thirtyOneDaysAgo.setDate(today.getDate() - 365);
 
     // Initialize monthly sum for each day
     while (thirtyOneDaysAgo <= today) {
@@ -45,7 +46,7 @@ async function getMonthlySum(userId: string) {
     }
 
     // Fetch transactions for the last 31 days
-    thirtyOneDaysAgo.setDate(thirtyOneDaysAgo.getDate() - 31);
+    thirtyOneDaysAgo.setDate(thirtyOneDaysAgo.getDate() - 365);
     const transactions = await prisma.transactions.findMany({
         where: {
             userId,
@@ -85,7 +86,7 @@ async function getWeeklySum(userId: string) {
         where: {
             userId,
             createdAt: {
-                gte: sevenDaysAgo,
+                gt: sevenDaysAgo,
             },
         },
         orderBy: { createdAt: 'asc' },
@@ -102,7 +103,12 @@ async function getWeeklySum(userId: string) {
 
 // Main handler function to get all required data
 export async function GET(req: NextRequest) {
-    const userId = "user_2s7bhFQwNdIM108wWPgoUSeQzJp"; // Use actual user ID
+    const { userId } = await auth();
+        if (!userId) {
+            return NextResponse.json({
+                error: "Unauthorized user"
+            }, { status: 401 });
+        }
 
     if (!userId) {
         return NextResponse.json({ error: "Unauthorized user" }, { status: 401 });
@@ -110,11 +116,11 @@ export async function GET(req: NextRequest) {
 
     try {
         // Fetch all data
-        const [categoryDivisions, paymentMethodDivisions, totalAmount, lastMonth, lastWeek] = await Promise.all([
+        const [categoryDivisions, paymentMethodDivisions, totalAmount, lastYear, lastWeek] = await Promise.all([
             getCategoryDivisions(userId),
             getPaymentMethodDivisions(userId),
             getTotalAmount(userId),
-            getMonthlySum(userId),
+            getYearlySum(userId),
             getWeeklySum(userId),
         ]);
 
@@ -126,11 +132,11 @@ export async function GET(req: NextRequest) {
                 categoryDivisions,
                 paymentMethodDivisions,
                 totalAmount,
-                lastMonth,
+                lastYear,
                 lastWeek,
             },
         }
-        return NextResponse.json({response},{status : 200});
+        return NextResponse.json(response,{status : 200});
     } catch (error : any) {
         console.error(error.message);
         const errorResponse:ErrorResponse = {

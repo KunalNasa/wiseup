@@ -35,10 +35,8 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
           <Separator className="h-2 bg-indigo-600" />
-          <Navbar/>
           {children}
           <Separator className="h-2 bg-indigo-600"/>
-          <Footer/>
           <Toaster />
         </body>
       </html>

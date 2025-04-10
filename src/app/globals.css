@@ -5,6 +5,30 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+.react-calendar-heatmap text.month-label,
+.react-calendar-heatmap text.wday-label {
+  color: #000;
+  fill: #000; /* Black text */
+  font-size: 0.75rem; /* Tailwind's text-sm = 12px */
+}
+.color-empty {
+  fill: #f5e8fb; /* very light, like violet-100/200 */
+}
+.color-scale-1 {
+  fill: #e9d5ff; /* violet-300 */
+}
+.color-scale-2 {
+  fill: #c084fc; /* violet-400 */
+}
+.color-scale-3 {
+  fill: #a855f7; /* violet-500 */
+}
+.color-scale-4 {
+  fill: #7c3aed; /* violet-600 */
+}
+.color-scale-5 {
+  fill: #6d28d9; /* violet-700 (optional for max intensity) */
+}
 @keyframes gradient-bg {
   0% {
       background-position: 0% 50%;
