@@ -68,8 +68,7 @@ const Page = () => {
     });
   };
   return (
-    <div>
-      <div className="p-4 w-11/12 mx-auto rounded-md my-2">
+      <div className="p-10 w-full mx-auto rounded-md my-2">
       <div className="flex justify-between">
         <h1 className="text-2xl font-semibold w-full text-indigo-500">
           Add Transaction
@@ -183,7 +182,6 @@ const Page = () => {
     />
         </div>
       </div>
-    </div>
   );
 };
 

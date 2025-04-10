@@ -1,58 +1,59 @@
 'use client'
-import CategoryDivision from "@/components/Analytics/CategoryDivision"
-import DailyProgress from "@/components/Analytics/DailyProgress"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useUser } from "@clerk/nextjs";
 
+import ProfileCard from "@/components/AnalyticsHelper/ProfileCard";
+import CategoryDivision from "@/components/Charts/CategoryDivision.chart";
+import PaymentDivision from "@/components/Charts/PaymentDivision.chart";
+import Weekly from "@/components/Charts/Weekly.chart";
+import Yearly from "@/components/Charts/Yearly.chart";
+import { statsResponse } from "@/types/stats.type";
+import { useEffect, useState } from "react";
 
-const page = () => {
-    const { user } = useUser();
-    const handleClick = async () =>{
-        const response = await fetch('/api/fetch-daily');
-        const body = await response.json();
-        console.log(body.data)
+export default function page() {
+  const [data, setData] = useState<null | statsResponse>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const fetchAnalytics = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/stats');
+      const decoded = await response.json();
+      const data: statsResponse = decoded.data;
+      setData(data);
+    } catch (error: any) {
+      throw new Error(error.message);
+    } finally {
+      setLoading(false);
     }
-    return (
-    <div className="MainContainer">
-        <div className="flex">
-            <div className="ProfileSection border-2 border-gray-300 h-auto rounded-md m-1 w-3/12">
-                <Avatar className="w-28 h-28 m-5">
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                    <AvatarFallback>User</AvatarFallback>
-                </Avatar>
-                <div className="font-semibold mx-5 my-1">
-                    <label className="text-gray-600" htmlFor="">Email</label>
-                    <p className="text-gray-900">{user?.primaryEmailAddress?.emailAddress}</p>
-                </div>
-                <div className=" font-semibold mx-5 my-1">
-                    <label className="text-gray-600 font-semibold" htmlFor="">Member Since</label>
-                    <p className="text-gray-900">{user?.createdAt
-                        ? new Date(user.createdAt).toLocaleDateString('en-US', {
-                            month: 'long',
-                            day: 'numeric',
-                            year: 'numeric',
-                          }) 
-                        : "No date available"}
-                    </p>
-                </div>
-                <div className="mx-5 my-1">
-                    <label className="text-gray-600 font-semibold" htmlFor="">User Id</label>
-                    <p className="text-gray-500">{user?.id}</p>
-                </div>
-               
-            </div>
-                <div className="AnalysisSection m-1 w-9/12">
-                <div className="border-2">
-                    <CategoryDivision/>
-                </div>
-                <div className="border-2">
-                    <DailyProgress/>
-                </div>
-            </div>
-            {/* <button className="bg-red-400" onClick={() => {handleClick()}}>Click me </button> */}
-        </div>
-    </div>    
-    )
-}
+  };
 
-export default page
+  useEffect(() => {
+    fetchAnalytics();
+  }, []);
+
+  return (
+    <div className="flex flex-col w-full lg:flex-row min-h-screen">
+      <div className="flex-1 flex flex-col w-full">
+        {/* Top Section */}
+        <div className="grid p-2 w-full gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto">
+          <div className="md:row-span-2">
+            <ProfileCard data={data || null} loading={loading} />
+          </div>
+          <div>
+            <CategoryDivision data={data?.categoryDivisions || []} loading={loading} />
+          </div>
+          <div>
+            <PaymentDivision loading={loading} data={data?.paymentMethodDivisions || []} />
+          </div>
+          <div className="md:col-span-2">
+            <Weekly loading={loading} data={data?.lastWeek || {}} />
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="w-full p-2">
+          <Yearly loading={loading} data={data?.lastYear || {}} />
+        </div>
+      </div>
+    </div>
+  );
+}
