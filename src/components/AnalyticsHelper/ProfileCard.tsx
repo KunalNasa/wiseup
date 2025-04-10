@@ -41,7 +41,7 @@ export default function ProfileCard({ data, loading }: { data: statsResponse | n
             </Avatar>
             <div>
                <div className="text-sm">
-                  <p className="text-gray-900">{user?.primaryEmailAddress?.emailAddress}</p>
+                  <p className="text-gray-900 break-all">{user?.primaryEmailAddress?.emailAddress}</p>
                </div>
                <div className="text-sm">
                   <label className="text-gray-600 font-semibold" htmlFor="">Member Since</label>

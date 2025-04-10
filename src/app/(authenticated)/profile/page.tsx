@@ -31,7 +31,7 @@ export default function page() {
   }, []);
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen">
+    <div className="flex flex-col w-full lg:flex-row min-h-screen">
       <div className="flex-1 flex flex-col w-full">
         {/* Top Section */}
         <div className="grid p-2 w-full gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto">

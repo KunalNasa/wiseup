@@ -14,10 +14,10 @@ export default function RootLayout({
 }>) {
   return (
         <div className="flex md:flex-row flex-col">
-            <div className="md:w-[18%] overflow-y-hidden max-h-screen w-0 hidden md:flex">
-            <Sidebar/>
+            <div className="lg:w-[18%] overflow-y-hidden max-h-screen w-0 hidden md:flex">
+                <Sidebar/>
             </div>
-            <div className="md:w-[82%] w-0 hidden md:flex">
+            <div className="lg:w-[82%] h-screen overflow-y-scroll w-full md:flex">
                 {children}
             </div>
         </div>
