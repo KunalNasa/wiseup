@@ -15,7 +15,12 @@ export default function CategoryDivision({data, loading} : Props) {
   return (
     <div className="h-full">
     {data.length === 0 ? (
-      <CategoryDivisionSkeleton/>
+      <div className="bg-gray-100 h-full flex items-center flex-col p-2  rounded-lg">
+        <h2 className="px-3 pb-5 text-center text-lg font-semibold text-gray-700">Category Expenses</h2>
+        <p className="text-lg font-semibold mx-auto my-auto text-gray-500">
+          Nothing to Show here. Please add some transactions
+        </p>
+      </div>
     ) : (
       <div className="bg-gray-100 h-full flex items-center flex-col p-2  rounded-lg">
       <h2 className="px-3 pb-5 text-center text-lg font-semibold text-gray-700">Category Expenses</h2>

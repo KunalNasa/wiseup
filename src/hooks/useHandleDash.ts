@@ -45,6 +45,16 @@ const useHandleDash = (debouncedSearchString : string) => {
                     description : "Transaction Added Successfully",
                     variant : "default"
                 })
+                setallTransactions([
+                    ...allTransactions,
+                    {
+                        paymentFor: data.paymentFor,
+                        amount: data.amount,
+                        category: data.category,
+                        paymentMethod: data.paymentMethod,
+                        createdAt: Date.now()
+                    }
+                ])
             }
         } catch (error : any) {
             console.log("Error in Add Transaction hook", error.message);
@@ -79,7 +89,7 @@ const useHandleDash = (debouncedSearchString : string) => {
             })
         }
     },[debouncedSearchString, toast])
-    return {handleAddTransaction, allTransactions, handleFetchTransactions, currentPage, totalPages};
+    return {handleAddTransaction, allTransactions, handleFetchTransactions, currentPage, totalPages, setallTransactions};
 }
 
 export default useHandleDash

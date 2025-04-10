@@ -15,7 +15,7 @@ const Page = () => {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm] = useDebounceValue(searchTerm, 300);
-  const {handleAddTransaction, allTransactions, handleFetchTransactions, currentPage, totalPages} = useHandleDash(debouncedSearchTerm);
+  const {handleAddTransaction, allTransactions, handleFetchTransactions, currentPage, totalPages, setallTransactions} = useHandleDash(debouncedSearchTerm);
 
   // State for the form data
   const [data, setData] = useState<{

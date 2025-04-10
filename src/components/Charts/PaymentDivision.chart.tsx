@@ -22,7 +22,12 @@ export default function PaymentDivision({ data, loading }: Props) {
   return (
     <div className="h-full">
       {data.length === 0 ? (
-        <PaymentDivisionSkeleton/>
+        <div className="bg-gray-100 h-full flex items-center flex-col p-2  rounded-lg">
+        <h2 className="px-3 pb-5 text-center text-lg font-semibold text-gray-700">Payment Method Analysis</h2>
+        <p className="text-lg font-semibold mx-auto my-auto text-gray-500">
+          Nothing to Show here. Please add some transactions
+        </p>
+        </div>
       ) : (
         <div className="bg-gray-100 h-full flex flex-col items-center justify-center p-2 rounded-lg">
           <h2 className="text-lg pb-5 font-semibold text-gray-700 text-center ">
