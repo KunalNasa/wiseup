@@ -89,7 +89,7 @@ const useHandleDash = (debouncedSearchString : string) => {
             })
         }
     },[debouncedSearchString, toast])
-    return {handleAddTransaction, allTransactions, handleFetchTransactions, currentPage, totalPages, setallTransactions};
+    return {handleAddTransaction, allTransactions, handleFetchTransactions, currentPage, totalPages};
 }
 
 export default useHandleDash
