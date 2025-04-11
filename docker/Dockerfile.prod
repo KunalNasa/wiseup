@@ -1,0 +1,41 @@
+# syntax=docker/dockerfile:1.4
+FROM node:23-alpine
+
+# To work fine with prisma and avoid compatibility error
+RUN apk add --no-cache openssl
+
+WORKDIR /app
+
+COPY ./package.json ./package-lock.json ./
+COPY ./prisma ./prisma
+
+RUN npm install --force
+
+COPY . .
+
+RUN --mount=type=secret,id=stripe_key_pub \
+    --mount=type=secret,id=clerk_key_pub \
+    --mount=type=secret,id=clerk_key \
+    --mount=type=secret,id=stripe_key \
+    export NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$(cat /run/secrets/clerk_key_pub) && \
+    export NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$(cat /run/secrets/stripe_key_pub) && \
+    export CLERK_SECRET_KEY=$(cat /run/secrets/clerk_key) && \
+    export STRIPE_PRIVATE_KEY=$(cat /run/secrets/stripe_key) && \
+    npm run build
+
+
+
+#  This would not work, you also have to export keys, like export NEXT_PU....
+# RUN --mount=type=secret,id=stripe_key_pub \
+#     --mount=type=secret,id=clerk_key_pub \
+#     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$(cat /run/secrets/clerk_key_pub) \
+#     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$(cat /run/secrets/stripe_key_pub) \
+#     npm run build
+
+# Never run prisma generate and migrate during build
+# RUN npx prisma generate
+# RUN npx prisma migrate
+
+
+CMD ["npm", "run", "docker:start"]
+

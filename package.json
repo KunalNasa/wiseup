@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "docker:dev": "npx prisma generate && npx prisma migrate dev --name init && next dev",
+    "docker:start": "npx prisma generate && npx prisma migrate deploy && next start",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -31,13 +33,11 @@
     "axios": "^1.7.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.0.0-alpha.1",
-    "install": "^0.13.0",
+    "framer-motion": "^11.0.0",
     "lucide-react": "^0.461.0",
     "mongoose": "^8.8.2",
     "next": "^15.0.3",
     "next-auth": "^4.24.10",
-    "npm": "^10.9.1",
     "react": "^18.2.0",
     "react-calendar-heatmap": "^1.10.0",
     "react-dom": "^18.2.0",

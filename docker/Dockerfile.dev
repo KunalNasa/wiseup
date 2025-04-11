@@ -1,0 +1,19 @@
+FROM node:23-alpine
+
+# To work fine with prisma and avoid compatibility error
+RUN apk add --no-cache openssl
+
+WORKDIR /app
+
+COPY ./package.json ./package-lock.json ./
+COPY ./prisma ./prisma
+
+RUN npm install --force
+
+# Not during build
+# RUN npx prisma generate
+# RUN npx prisma migrate
+
+COPY . .
+
+CMD ["npm", "run", "docker:dev"]
