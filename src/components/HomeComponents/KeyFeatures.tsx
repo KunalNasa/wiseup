@@ -26,23 +26,26 @@ import { motion } from 'framer-motion'
 
 export default function KeyFeatures() {
   return (
+    <div className='w-full bg-gray-50'>
+
     <div
       id="features"
-      className="w-full py-20 px-6 rounded-t-[2.5rem] my-10 bg-gray-50"
-    >
+      className="w-9/12 mx-auto py-20 px-6 rounded-t-[2.5rem] my-10"
+      >
       <h2 className="text-center text-5xl py-2 font-mitr font-bold text-violet-600 mb-8">
         Why Choose WiseUp?
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2  gap-10">
         {features.map((feature, index) => (
           <Cards
-            feature={feature}
-            key={index}
+          feature={feature}
+          key={index}
           />
-
+          
         ))}
       </div>
     </div>
+        </div>
   )
 }
 
@@ -52,7 +55,7 @@ function Cards({ feature }: {
   return (
     <div className=''>
       <motion.div
-        className="p-[4px] hover:shadow-2xl hover:shadow-pink-500 rounded-xl bg-gradient-to-br from-violet-600 via-violet-500 to-pink-500  "
+        className="p-[4px] h-full hover:shadow-2xl hover:shadow-pink-500 rounded-xl bg-gradient-to-br from-violet-600 via-violet-500 to-pink-500  "
         initial={{
           y: 100,
           opacity: 0,
@@ -69,7 +72,7 @@ function Cards({ feature }: {
         viewport={{ once: true, amount: 0.6 }}
       // variants={cardVariants}
       >
-        <div className='bg-white rounded-xl p-6'>
+        <div className='bg-white h-full rounded-xl p-6'>
 
           <div className="flex  justify-center mb-4">
             <Image

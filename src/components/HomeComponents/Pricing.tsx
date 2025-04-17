@@ -13,7 +13,7 @@ export default function Pricing() {
       </div>
     <div  className="w-full my-10 flex justify-center items-start">
       <div className="card m-10 border-2 flex flex-col gap-4 border-gray-800 rounded-2xl p-7">
-        <h2 className="text-4xl text-gray-600 font-semibold">Free</h2>
+        <h2 className="text-4xl text-gray-600 font-semibold">Basic</h2>
         <div>
         <h3 className="text-4xl">$0</h3>
         <p className="text-sm text-gray-600">Per month, billed annually</p>
@@ -29,8 +29,8 @@ export default function Pricing() {
           <Excluded>AI analysis</Excluded>
           <Excluded>Manage Subscriptions</Excluded>
         </ul>
-        <Link href='/sign-in' className="mx-auto my-5">
-        <Button>Get Started For free</Button>
+        <Link href='/sign-in' className="mx-auto w-full my-5">
+        <Button className="w-full">Get Started for Free</Button>
         </Link>
       </div>
 
@@ -51,8 +51,8 @@ export default function Pricing() {
           <Tab>AI analysis</Tab>
           <Tab>Manage Subscriptions</Tab>
         </ul>
-        <Link href='/sign-in' className="mx-auto my-5">
-        <Button>Get Started For free</Button>
+        <Link href='/sign-in' className="mx-auto my-5 w-full">
+        <Button className="w-full flex items-center justify-center gap-2"><span><FaFire/></span> Get Pro</Button>
         </Link>
       </div>
     </div>

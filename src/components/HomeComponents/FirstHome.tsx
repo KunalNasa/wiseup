@@ -12,7 +12,7 @@ const FirstHome = () => {
         <p className='text-gray-600'>Manage transactions, track expenses, and make smarter financial decisions all in one place.</p>
         <div className='my-20 flex gap-5 items-center justify-center'>
           <Link href="/sign-in" className='bg-gradient-to-br from-violet-600 via-violet-500 to-pink-600 shadow-pink  font-semibold text-white hover:bg-none border-2 hover:border-gray-200 hover:text-black rounded-full px-2 w-[30%] py-4'>Join Now</Link>
-          <button className='hover:text-white bg-white-500 hover:bg-gradient-to-br hover:from-violet-600 hover:via-violet-500 hover:to-pink-600 text-black border-gray-200 border-2 font-semibold rounded-full px-2 w-[30%] py-4'>Explore Features</button>
+          <Link href='/#features' className='hover:text-white bg-white-500 hover:bg-gradient-to-br hover:from-violet-600 hover:via-violet-500 hover:to-pink-600 text-black border-gray-200 border-2 font-semibold rounded-full px-2 w-[30%] py-4'>Explore Features</Link>
 
         </div>
       </div>
