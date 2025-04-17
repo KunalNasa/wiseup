@@ -15,7 +15,10 @@ export default function Navbar() {
   })
 
   return (
-    <nav className="w-full flex items-center bg-gray-100 py-4">
+    <nav className="w-full bg-gray-50 flex px-10 items-center justify-between py-3 mb-10">
+      <div>
+        <Image height={200} width={200} src="/Logo.svg" alt="" />
+      </div>
       <ul
           className="relative border mx-auto flex w-fit rounded-xl border-1 border-violet-400 bg-none p-1"
           onMouseLeave={() => {
@@ -27,10 +30,13 @@ export default function Navbar() {
       > 
         <Tab setPosition={setPosition}><Button onClick={() => router.replace('/')} variant="secondary">Home</Button></Tab>
         <Tab setPosition={setPosition}><Button onClick={() => router.replace('/#features')} variant="secondary">Features</Button></Tab>
-        <Tab setPosition={setPosition}><Button variant="secondary" onClick={() => router.replace('/sign-up')}>Sign Up</Button></Tab>
-        <Tab setPosition={setPosition}><Button onClick={() => router.replace('/sign-in')}>Sign In</Button></Tab>
+        <Tab setPosition={setPosition}><Button onClick={() => router.replace('/#pricing')} variant="secondary">Pricing</Button></Tab>
         <Cursor position={position} />
       </ul>
+      <div className="flex items-center gap-4">
+      <Button variant="secondary" onClick={() => router.replace('/sign-up')}>Sign Up</Button>
+      <Button onClick={() => router.replace('/sign-in')}>Sign In</Button>
+      </div>
     </nav>
   );
 }
@@ -39,7 +45,7 @@ export function Tab({ children, setPosition }: { children: React.ReactNode; setP
   const ref = useRef(null);
   return (
     <li
-    className="relative z-10 block cursor-pointer px-3 py-1.5 text-xs  text-black md:px-5 md:py-3 md:text-base"
+    className="relative z-10 block cursor-pointer px-3 py-1.5 text-xs  text-black md:px-5 md:py-2 md:text-base"
     ref={ref}
     onMouseEnter={() => {
       if(ref.current === null) return;

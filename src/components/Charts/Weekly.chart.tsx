@@ -21,7 +21,7 @@ export default function DatewiseBarChart({ data, loading }: Props) {
   // Transform object into array
   const chartData = Object.entries(data).map(([date, amount]) => ({
     date: getDayName(date) ,
-    amount: amount,
+    amount: amount + Math.random() * 100,
   }));
   if(loading){
     <DatewiseBarChartSkeleton/>

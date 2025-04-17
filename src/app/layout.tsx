@@ -3,15 +3,20 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
-import Navbar from "@/components/Navbar";
-import { Separator } from "@radix-ui/react-dropdown-menu";
-import Footer from "@/components/Footer";
+import { Mitr } from "next/font/google"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
+const mitr = Mitr({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "700"],
+  display: "swap",
+  variable: "--font-mitr",
+})
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
@@ -30,9 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" className="scroll-smooth">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${mitr.variable} ${geistMono.variable} antialiased`}
           >
           {children}
           <Toaster />
