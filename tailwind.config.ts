@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
   	extend: {
+		fontFamily: {
+			mitr : ['var(--font-mitr)'],
+		  },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

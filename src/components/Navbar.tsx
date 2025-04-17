@@ -1,88 +1,81 @@
 "use client";
-
+import {motion} from "framer-motion"
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { useUser, useClerk } from "@clerk/nextjs";
-import { LogOut, CreditCard, UserRound, LayoutDashboardIcon } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Button } from "./MyUi/Button";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 export default function Navbar() {
-  const { user } = useUser();
-  const { signOut } = useClerk();
+  const router = useRouter();
+  const [position, setPosition] = useState({
+    width : 0,
+    left: 0,
+    opacity: 0
+  })
 
   return (
-    <nav className="bg-gray-900 border-b">
-      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
-            <Link href="/" className="flex-shrink-0 flex items-center">
-              <span className="ml-2 text-xl font-bold"><Image width={150} height={150} src="/Logo.svg" alt="" /></span>
-            </Link>
-          </div>
-          <div className="flex items-center">
-            {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="relative h-8 w-8 rounded-full"
-                  >
-                    <Avatar>
-                      <AvatarImage src={user.imageUrl} alt="User avatar" />
-                      <AvatarFallback>
-                        {user.firstName?.charAt(0) || "U"}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                <DropdownMenuItem asChild>
-                    <Link href="/profile" className="flex items-center">
-                      <UserRound className="mr-2 h-4 w-4" />
-                      <span>Profile</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/dashboard" className="flex items-center">
-                      <LayoutDashboardIcon className="mr-2 h-4 w-4" />
-                      <span>Dashboard</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/premium" className="flex items-center">
-                      <CreditCard className="mr-2 h-4 w-4" />
-                      <span>Buy Premium</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => signOut()}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Sign out</span>
-                  </DropdownMenuItem>
-                  
-                  
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <>
-                <Button asChild className="bg-indigo-500 hover:bg-green-500 font-semibold mr-2">
-                  <Link href="/sign-in">Sign In</Link>
-                </Button>
-                <Button className="bg-white text-black hover:bg-indigo-500 font-semibold hover:text-white" asChild>
-                  <Link href="/sign-up">Sign Up</Link>
-                </Button>
-              </>
-            )}
-          </div>
-        </div>
+    <nav className="w-full bg-gray-50 flex px-10 items-center justify-between py-3 mb-10">
+      <div>
+        <Image height={200} width={200} src="/Logo.svg" alt="" />
+      </div>
+      <ul
+          className="relative border mx-auto flex w-fit rounded-xl border-1 border-violet-400 bg-none p-1"
+          onMouseLeave={() => {
+            setPosition((pv) => ({
+                ...pv,
+                opacity : 0
+            }))
+        }}
+      > 
+        <Tab setPosition={setPosition}><Button onClick={() => router.replace('/')} variant="secondary">Home</Button></Tab>
+        <Tab setPosition={setPosition}><Button onClick={() => router.replace('/#features')} variant="secondary">Features</Button></Tab>
+        <Tab setPosition={setPosition}><Button onClick={() => router.replace('/#pricing')} variant="secondary">Pricing</Button></Tab>
+        <Cursor position={position} />
+      </ul>
+      <div className="flex items-center gap-4">
+      <Button variant="secondary" onClick={() => router.replace('/sign-up')}>Sign Up</Button>
+      <Button onClick={() => router.replace('/sign-in')}>Sign In</Button>
       </div>
     </nav>
   );
+}
+
+export function Tab({ children, setPosition }: { children: React.ReactNode; setPosition: React.Dispatch<React.SetStateAction<{ width: number; left: number; opacity: number }>> }) {
+  const ref = useRef(null);
+  return (
+    <li
+    className="relative z-10 block cursor-pointer px-3 py-1.5 text-xs  text-black md:px-5 md:py-2 md:text-base"
+    ref={ref}
+    onMouseEnter={() => {
+      if(ref.current === null) return;
+
+      const { width } = (ref.current as HTMLElement).getBoundingClientRect();
+      setPosition({
+        width : width/2,
+        left: (ref.current as HTMLElement).offsetLeft + width/4,
+        opacity: 1
+      })
+    }}
+    >
+      {children}
+    </li>
+  )
+
+}
+
+
+export function Cursor({ position }: { position: { width: number; left: number; opacity: number } }) {
+  return (
+      <motion.div
+      className="absolute top-12 z-0 h-[2px] rounded-lg bg-violet-500 md:h-[4px]"
+      animate={{
+          ...position
+      }}
+      transition={{
+          duration : 0.2,
+          scale: { type: "spring", visualDuration: 0.7, bounce: 0.7 },
+      }}
+       />
+  )
 }

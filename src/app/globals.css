@@ -11,6 +11,11 @@ body {
   fill: #000; /* Black text */
   font-size: 0.75rem; /* Tailwind's text-sm = 12px */
 }
+.text-gradient {
+  background: linear-gradient(to right, #8438ef, #fd0ad0, #f17de4);
+  -webkit-background-clip: text;
+  color: transparent;
+}
 .color-empty {
   fill: #f5e8fb; /* very light, like violet-100/200 */
 }
@@ -40,11 +45,7 @@ body {
       background-position: 0% 50%;
   }
 }
-.text-gradient {
-  background: linear-gradient(to right, #7509c3, #7414dc, #6e1fed);
-  -webkit-background-clip: text;
-  color: transparent;
-}
+
 
 
 @keyframes gradient-border {
