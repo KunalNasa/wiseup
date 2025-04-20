@@ -1,7 +1,7 @@
 import { PaymentMethod, TransactionCategory } from "@prisma/client";
-import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import React, { useState } from "react";
+import { Button } from "../MyUi/Button";
 
 type TransactionFormProps = {
   onSubmit: (data: TransactionData) => void;
@@ -49,7 +49,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4 border p-5 rounded-lg">
       {/* Row 1 */}
       <div className="flex space-x-4">
         <input
@@ -97,7 +97,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
         </select>
       </div>
 
-      <Button type="submit" className="w-full bg-indigo-500 font-semibold">
+      <Button type="submit">
         Submit
       </Button>
     </form>

@@ -1,60 +1,45 @@
 'use client'
-import { Check } from "lucide-react"
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { useRouter } from "next/navigation"
+import { ReactNode } from "react"
+import Link from "next/link"
+import { FaFire } from "react-icons/fa"
+import { IoMdCheckmark } from "react-icons/io"
+import { Button } from "./MyUi/Button"
 
-const notifications = [
-  {
-    title: "Unlimited transaction entries",
-  },
-  {
-    title: "Weekly spend analysis report",
-  },
-  {
-    title: "Daily expense tracking insights",
-  },
-]
 
-type CardProps = React.ComponentProps<typeof Card>
-
-export function PremiumCard({ className, ...props }: CardProps) {
-  const router = useRouter();
+export function PremiumCard() {
   return (
-    <Card className={cn("w-[380px]", className)} {...props}>
-      <CardHeader>
-        <CardTitle className="text-indigo-500 text-2xl">Go Premium, Go Limitless!</CardTitle>
-      </CardHeader>
-      <CardContent className="grid gap-4">
-        <div>
-          {notifications.map((notification, index) => (
-            <div
-              key={index}
-              className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0"
-            >
-              <span className="flex h-3 w-3 translate-y-1 rounded-full bg-green-500" />
-              <div className="space-y-1">
-                <p className=" text-lg font-medium leading-none">
-                  {notification.title}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button onClick={() => {router.replace('/subscribe')}} className="w-full bg-indigo-500 hover:bg-green-500 font-semibold">
-          <Check />  Upgrade to Premium Now 
-        </Button>
-      </CardFooter>
-    </Card>
+    <div className="card m-10 border-2 flex flex-col gap-4 border-violet-500 shadow-2xl shadow-pink-400 rounded-2xl p-7">
+    <h2 className="text-4xl flex items-center gap-5 text-gradient font-semibold">Pro<span className="bg-gradient-to-br from-violet-600 via-violet-500 to-pink-500 py-1 px-5 rounded-full shadow-inner font-thin flex items-center gap-3 text-white text-sm shadow-pink-200"><span><FaFire/></span> Popular</span></h2>
+    <div>
+    <h3 className="text-4xl">$1</h3>
+    <p className="text-sm text-gray-600">Per month, billed annually</p>
+    </div>
+    <h4 className="text-sm font-semibold text-gray-600">To Keep an eye on your expenses</h4>
+    <ul className="flex flex-col max-w-[250px] gap-2">
+      <Tab>Filter Payment methods</Tab>
+      <Tab>Unlimited transaction records per day</Tab>
+      <Tab>Weekly analysis</Tab>
+      <Tab>Day to day analysis</Tab>
+      <Tab>Track of total amount spent</Tab>
+      <Tab>Set Budget</Tab>
+      <Tab>AI analysis</Tab>
+      <Tab>Manage Subscriptions</Tab>
+    </ul>
+    <Link href='/subscribe' className="mx-auto my-5 w-full">
+    <Button className="w-full flex items-center justify-center gap-2"><span><FaFire/></span> Get Pro</Button>
+    </Link>
+  </div>
   )
+}
+
+
+export function Tab ({children}: {children: ReactNode}) {
+  return (
+    <li className="flex items-center gap-2">
+      <span className="bg-white font-semibold text-green-500 rounded-full p-1"><IoMdCheckmark/></span>
+      {children}
+    </li>
+  )
+
 }

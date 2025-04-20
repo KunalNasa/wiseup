@@ -28,14 +28,14 @@ const Page = () => {
   return (
     <div className="p-10 w-full mx-auto rounded-md my-2">
       <div className="flex justify-between">
-        <h1 className="text-2xl font-semibold w-full text-indigo-500">Add Transaction</h1>
+        <h1 className="text-2xl font-semibold w-full text-gray-700">Add Transaction</h1>
         <TransactionSearchBar value={searchTerm} onChange={setSearchTerm} />
       </div>
 
       <TransactionForm onSubmit={handleAddTransaction} />
 
-      <div className="my-5">
-        <h3 className="text-3xl py-5 font-semibold text-indigo-500">Your Previous Transactions</h3>
+      <div className="py-5">
+        <h3 className="text-xl pt-5 pb-2 font-semibold text-gradient">Your Previous Transactions</h3>
         <TransactionsList transactions={allTransactions} />
         <Pagination
           currentPage={currentPage}

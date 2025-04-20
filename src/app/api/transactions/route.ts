@@ -93,7 +93,7 @@ export async function GET(req:NextRequest) {
         page = 1;
     }
     const search = searchParams.get("search") || "";
-    const ITEMS_PER_PAGE = 5;
+    const ITEMS_PER_PAGE = 10;
     try {
         const transactions = await prisma.transactions.findMany({
             where : {

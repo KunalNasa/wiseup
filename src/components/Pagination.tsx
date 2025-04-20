@@ -1,6 +1,5 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
-
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -13,24 +12,24 @@ export function Pagination({
   onPageChange,
 }: PaginationProps) {
   return (
-    <div className="flex justify-center space-x-2 mt-4">
-      <Button
+    <div className="flex my-5 justify-center">
+      <button
+        className="border p-2 border-r-0 rounded-l-md"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        variant="outline"
       >
-        Previous
-      </Button>
-      <span className="flex items-center">
-        Page {currentPage} of {totalPages}
+        <FaAngleLeft/>
+      </button>
+      <span className="flex p-2 items-center border">
+        {currentPage} / {totalPages}
       </span>
-      <Button
+      <button
+      className="border p-2 border-l-0 rounded-r-md"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        variant="outline"
       >
-        Next
-      </Button>
+        <FaAngleRight/>
+      </button>
     </div>
   );
 }
