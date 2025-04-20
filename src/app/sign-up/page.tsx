@@ -5,7 +5,6 @@ import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardHeader,
@@ -16,6 +15,8 @@ import {
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Eye, EyeOff } from "lucide-react";
+import { Button } from "@/components/MyUi/Button";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 export default function SignUp() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -78,28 +79,30 @@ export default function SignUp() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background">
+    <div className="bg-[url(/auth-bg.jpg)] p-5 h-screen bg-cover">
+    <Button onClick={() => router.replace('/')} className="flex items-center gap-2" variant="secondary"><span className="text-lg"><IoIosArrowRoundBack/></span> Back</Button>
+    <div className="flex items-center justify-center h-full my-auto">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-3xl font-bold text-center">
-            Sign Up for <span className="text-indigo-500">WiseUp</span>
+          <CardTitle className="text-3xl p-7 font-bold text-center">
+            Sign Up to <span className="text-gradient">WiseUp</span>
           </CardTitle>
         </CardHeader>
         <CardContent>
           {!pendingVerification ? (
-            <form onSubmit={submit} className="space-y-4">
+            <form onSubmit={submit} className="space-y-7 p-7">
               <div className="space-y-2">
-                <Label className="text-lg text-gray-700 font-semibold" htmlFor="email">Email</Label>
+                <Label className=" text-gray-700 font-semibold" htmlFor="email">Email</Label>
                 <Input
                   type="email"
                   id="email"
                   value={emailAddress}
                   onChange={(e) => setEmailAddress(e.target.value)}
                   required
-                />
+                  />
               </div>
               <div className="space-y-2">
-                <Label className="text-lg text-gray-700 font-semibold" htmlFor="password">Password</Label>
+                <Label className=" text-gray-700 font-semibold" htmlFor="password">Password</Label>
                 <div className="relative">
                   <Input
                     type={showPassword ? "text" : "password"}
@@ -107,12 +110,12 @@ export default function SignUp() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                  />
+                    />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-2 top-1/2 -translate-y-1/2"
-                  >
+                    >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4 text-gray-500" />
                     ) : (
@@ -126,7 +129,7 @@ export default function SignUp() {
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
-              <Button className="w-full text-lg py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md font-semibold" type="submit">
+              <Button className="w-full" type="submit">
                 Sign Up
               </Button>
             </form>
@@ -142,14 +145,14 @@ export default function SignUp() {
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="Enter verification code"
                   required
-                />
+                  />
               </div>
               {error && (
                 <Alert variant="destructive">
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
-              <Button type="submit" className="w-full text-lg py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md font-semibold">
+              <Button type="submit" >
                 Verify Email
               </Button>
             </form>
@@ -161,12 +164,13 @@ export default function SignUp() {
             <Link
               href="/sign-in"
               className="font-medium text-primary hover:underline"
-            >
+              >
               Sign in
             </Link>
           </p>
         </CardFooter>
       </Card>
     </div>
+  </div>
   );
 }

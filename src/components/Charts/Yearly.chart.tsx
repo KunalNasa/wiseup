@@ -23,7 +23,7 @@ export default function Yearly({ data, loading }: Props) {
 
   const chartData = sortedEntries.map(([date, amount]) => ({
     date,
-    count: amount + Math.random()*100,
+    count: amount,
   }));
 
   return (
