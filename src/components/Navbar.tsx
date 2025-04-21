@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <nav className="w-full bg-gray-50 flex px-10 items-center justify-between py-3 mb-10">
-      <div>
+      <div className="md:pr-20">
         <Image height={70} width={70} src="/Logo.svg" alt="" />
       </div>
       <ul
