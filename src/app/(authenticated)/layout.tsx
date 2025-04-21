@@ -1,3 +1,4 @@
+import MobileSidebar from "@/components/MobileSidebar";
 import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 
@@ -16,6 +17,9 @@ export default function RootLayout({
         <div className="flex md:flex-row flex-col">
             <div className="lg:w-[18%] overflow-y-hidden max-h-screen w-0 hidden md:flex">
                 <Sidebar/>
+            </div>
+            <div className="md:hidden">
+              <MobileSidebar/>
             </div>
             <div className="lg:w-[82%] h-screen overflow-y-scroll w-full md:flex">
                 {children}
