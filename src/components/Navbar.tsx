@@ -20,7 +20,7 @@ export default function Navbar() {
         <Image height={200} width={200} src="/Logo.svg" alt="" />
       </div>
       <ul
-          className="relative border mx-auto flex w-fit rounded-xl border-1 border-violet-400 bg-none p-1"
+          className="relative hidden border mx-auto md:flex w-fit rounded-xl border-1 border-violet-400 bg-none p-1"
           onMouseLeave={() => {
             setPosition((pv) => ({
                 ...pv,
@@ -33,7 +33,7 @@ export default function Navbar() {
         <Tab setPosition={setPosition}><Button onClick={() => router.replace('/#pricing')} variant="secondary">Pricing</Button></Tab>
         <Cursor position={position} />
       </ul>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-1 md:gap-4">
       <Button variant="secondary" onClick={() => router.replace('/sign-up')}>Sign Up</Button>
       <Button onClick={() => router.replace('/sign-in')}>Sign In</Button>
       </div>
