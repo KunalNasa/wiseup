@@ -4,12 +4,11 @@ const Footer = () => {
   return (
     <footer>
       <p className='w-full h-[1px] bg-gray-300'></p>
-    <div className="bg-gray-50 w-full flex py-28">
+    <div className="bg-gray-50 w-full flex gap-10 py-28">
         <div>
-            <Image width={500} height={500} src="/Logo.svg" alt="Logo" />
+            <Image width={100} height={100} className='mx-10' src="/Logo.svg" alt="Logo" />
         </div>
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-        
         {/* Column 1: Social Media Links */}
         <div className="flex flex-col items-start space-y-4">
           <div className="flex items-center space-x-2">

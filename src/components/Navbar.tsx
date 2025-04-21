@@ -17,7 +17,7 @@ export default function Navbar() {
   return (
     <nav className="w-full bg-gray-50 flex px-10 items-center justify-between py-3 mb-10">
       <div>
-        <Image height={200} width={200} src="/Logo.svg" alt="" />
+        <Image height={70} width={70} src="/Logo.svg" alt="" />
       </div>
       <ul
           className="relative hidden border mx-auto md:flex w-fit rounded-xl border-1 border-violet-400 bg-none p-1"
@@ -33,7 +33,7 @@ export default function Navbar() {
         <Tab setPosition={setPosition}><Button onClick={() => router.replace('/#pricing')} variant="secondary">Pricing</Button></Tab>
         <Cursor position={position} />
       </ul>
-      <div className="flex items-center gap-1 md:gap-4">
+      <div className="flex px-3 items-center gap-1 md:gap-4">
       <Button variant="secondary" onClick={() => router.replace('/sign-up')}>Sign Up</Button>
       <Button onClick={() => router.replace('/sign-in')}>Sign In</Button>
       </div>
