@@ -41,6 +41,8 @@ model User {
   updatedAt           DateTime       @updatedAt
   Transactions        Transactions[]
   SubscriptionsBought Subscription[]
+
+  mandates mandates[]
 }
 
 model Subscription {
@@ -65,3 +67,15 @@ model Transactions {
   category        TransactionCategory
 }
 
+model mandates {
+  id             String              @id @default(cuid())
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String
+  paymentMethod   PaymentMethod
+  paymentFor      String
+  amount          Int
+  repeat          Int
+  startDate       DateTime
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+}

@@ -88,6 +88,7 @@ const useHandleDash = (debouncedSearchString: string) => {
   
   // Function to handle page changes
   const handleFetchTransactions = (page: number) => {
+    // invoking fetch transactions indirectly by changing one of it's key
     setCurrentPage(page);
   };
   
@@ -109,3 +110,6 @@ const useHandleDash = (debouncedSearchString: string) => {
 };
 
 export default useHandleDash;
+
+
+
