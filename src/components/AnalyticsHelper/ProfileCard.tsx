@@ -34,7 +34,6 @@ export default function ProfileCard({ data, loading }: { data: statsResponse | n
 
    return (
       <div className="bg-gray-100 flex flex-col gap-2 h-full rounded-lg p-2">
-         hi
          <div className="ProfileSection bg-white/90 rounded-lg flex items-center h-auto">
             <Avatar className="w-20 h-20 m-5">
                <AvatarImage src="https://avatar.iran.liara.run/public/boy" alt="@shadcn" />
