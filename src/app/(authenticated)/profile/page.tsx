@@ -21,6 +21,7 @@ export default function Page() {
       const json = await res.json();
       return json.data as statsResponse;
     },
+    retry: 2,
     staleTime: 1000 * 60 * 5, // optional: keep fresh for 5m
   });
 

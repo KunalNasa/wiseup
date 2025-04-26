@@ -2,12 +2,12 @@
 
 import { useDebounceValue } from "usehooks-ts";
 import useHandleDash from "@/hooks/useHandleDash";
-
 import { Pagination } from "@/components/Pagination";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TransactionSearchBar from "@/components/DashboardComponents/TransactionSearchBar";
 import TransactionForm from "@/components/DashboardComponents/TransactionForm";
 import TransactionsList from "@/components/DashboardComponents/TransactionList";
+import GenericLoader from "@/components/skeletons/GenericLoader";
 
 const Page = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,11 +19,9 @@ const Page = () => {
     handleFetchTransactions,
     currentPage,
     totalPages,
+    isLoading,
+    isError,
   } = useHandleDash(debouncedSearchTerm);
-
-  useEffect(() => {
-    handleFetchTransactions(1);
-  }, [handleFetchTransactions]);
 
   return (
     <div className="p-10 w-full mx-auto rounded-md my-2">
@@ -36,12 +34,21 @@ const Page = () => {
 
       <div className="py-5">
         <h3 className="text-xl pt-5 pb-2 font-semibold text-gradient">Your Previous Transactions</h3>
-        <TransactionsList transactions={allTransactions} />
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={(page) => handleFetchTransactions(page)}
-        />
+        
+        {isLoading ? (
+          <GenericLoader/>
+        ) : isError ? (
+          <div className="text-center py-4 text-red-500">Error loading transactions. Please try again.</div>
+        ) : (
+          <>
+            <TransactionsList transactions={allTransactions} />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={(page) => handleFetchTransactions(page)}
+            />
+          </>
+        )}
       </div>
     </div>
   );
