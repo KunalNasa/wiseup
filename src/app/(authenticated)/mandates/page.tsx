@@ -3,18 +3,18 @@
 import { useState } from "react";
 import { PaymentMethod } from "@/types/enums.type";
 import GenericLoader from "@/components/skeletons/GenericLoader";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/MyUi/Button";
 import MandateTable from "@/components/MandateTable";
+import { toast } from "@/hooks/use-toast";
 
 const Page = () => {
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const queryClient = useQueryClient();
+  
   const mutation = useMutation({
     mutationFn: async (mandateData: any) => {
-      setIsLoading(true);
-      const res = await fetch('/api/mandates', {
+      const res = await fetch('/api/addMandate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(mandateData),
@@ -24,12 +24,15 @@ const Page = () => {
       return data.mandate;
     },
     onSuccess() {
-      alert("Mandate created successfully!");
-      setIsLoading(false);
+      toast({
+        title: "Success",
+        description: "Payment Set Successfully",
+        variant: "default"
+    });
+      queryClient.invalidateQueries({ queryKey: ['get-mandates'] });
     },
     onError(err: any) {
       setError(err.message);
-      setIsLoading(false);
     },
   });
 
@@ -40,13 +43,13 @@ const Page = () => {
 
   return (
     <div className="p-10 w-full mx-auto rounded-md my-2">
-      <h1 className="text-xl font-semibold text-gray-700 mb-3">Create Mandate</h1>
+      <h1 className="text-xl font-semibold text-gray-700 mb-3">Set Recurring Payment</h1>
 
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
       <MandateForm onSubmit={handleMandateSubmit} />
 
-      {isLoading && <GenericLoader />}
+      {mutation.isPending && <GenericLoader />}
     </div>
   );
 };

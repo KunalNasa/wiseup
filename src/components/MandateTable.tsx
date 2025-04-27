@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { PaymentMethod } from '@prisma/client';
 import { FaMoneyBillWave, FaCreditCard, FaWallet, FaCalendarAlt } from 'react-icons/fa';
+import GenericLoader from './skeletons/GenericLoader';
 
 type Mandate = {
   paymentFor: string;
@@ -40,7 +41,7 @@ const MandateTable: React.FC = () => {
   const { data, error, isLoading } = useQuery<Mandate[]>({queryKey: ['get-mandates'], queryFn: fetchMandates, retry: 2});
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <GenericLoader/>
   }
 
   if (error) {
