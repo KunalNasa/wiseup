@@ -15,15 +15,10 @@ export async function GET(req:NextRequest) {
                 userId : userId
             }
         });
-        if(previousSubscriptions.length === 0){
-            return NextResponse.json({
-                message : "No subscriptions found"
-            }, {status : 200});
-        }else{
-            return NextResponse.json({
-                subscriptions : previousSubscriptions
-            }, {status : 200})
-        }
+    
+        return NextResponse.json({
+            subscriptions : previousSubscriptions
+        }, {status : 200})
     } catch (error : any) {
         console.error("Internal server error in fetching previous subscriptions", error.message);
         return NextResponse.json({

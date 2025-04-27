@@ -22,7 +22,7 @@ export default function Page() {
       return json.data as statsResponse;
     },
     retry: 2,
-    staleTime: 1000 * 60 * 5, // optional: keep fresh for 5m
+    staleTime: 1000 * 60 * 60, // optional: keep fresh for 60m
   });
 
   if (isLoading) {

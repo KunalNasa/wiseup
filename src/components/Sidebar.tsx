@@ -8,6 +8,9 @@ import {
   CreditCard,
   LogOut,
 } from "lucide-react";
+import { MdSubscriptions } from "react-icons/md";
+import { BsStars } from "react-icons/bs";
+import { IoTimerOutline } from "react-icons/io5";
 import { useClerk } from "@clerk/nextjs";
 
 export default function Sidebar() {
@@ -27,9 +30,25 @@ export default function Sidebar() {
     },
     {
       href: "/premium",
-      label: "Buy Premium",
+      label: "Go Pro",
       icon: <CreditCard className="w-5 h-5 mr-2" />,
     },
+    {
+      href: "/mandates",
+      label: "Recurring Payments",
+      icon: <IoTimerOutline className="w-5 font-bold h-5 mr-2" />,
+    },
+    {
+      href: "/ai-analysis",
+      label: "AI Analysis",
+      icon: <BsStars className="w-5 h-5 mr-2" />,
+    },
+    {
+      href: "/sub-history",
+      label: "Subscription History",
+      icon: <MdSubscriptions className="w-5 h-5 mr-2" />,
+    },
+    
   ];
 
   return (

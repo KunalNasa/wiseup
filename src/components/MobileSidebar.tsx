@@ -12,6 +12,9 @@ import {
 } from "lucide-react";
 import { useClerk } from "@clerk/nextjs";
 import { useState } from "react";
+import { BsStars } from "react-icons/bs";
+import { IoTimerOutline } from "react-icons/io5";
+import { MdSubscriptions } from "react-icons/md";
 
 export default function MobileSidebar() {
   const pathname = usePathname();
@@ -34,6 +37,21 @@ export default function MobileSidebar() {
       label: "Buy Premium",
       icon: <CreditCard className="w-5 h-5 mr-2" />,
     },
+    {
+          href: "/mandates",
+          label: "Recurring Payments",
+          icon: <IoTimerOutline className="w-5 h-5 mr-2" />,
+        },
+        {
+          href: "/ai-analysis",
+          label: "AI Analysis",
+          icon: <BsStars className="w-5 h-5 mr-2" />,
+        },
+        {
+          href: "/sub-history",
+          label: "Subscription History",
+          icon: <MdSubscriptions className="w-5 h-5 mr-2" />,
+        },
   ];
 
   return (
