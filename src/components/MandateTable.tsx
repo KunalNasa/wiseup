@@ -1,11 +1,13 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { PaymentMethod } from '@prisma/client';
-import { FaMoneyBillWave, FaCreditCard, FaWallet, FaCalendarAlt } from 'react-icons/fa';
+import { FaMoneyBillWave, FaCreditCard, FaWallet, FaCalendarAlt, FaTrash } from 'react-icons/fa';
 import GenericLoader from './skeletons/GenericLoader';
+import { toast } from '@/hooks/use-toast';
 
 type Mandate = {
+  id: string; // Added ID field
   paymentFor: string;
   amount: number;
   paymentMethod: PaymentMethod;
@@ -37,11 +39,39 @@ const fetchMandates = async () => {
   return data.mandates;
 };
 
+const deleteMandate = async (id: string) => {
+  const response = await fetch(`/api/deleteMandate/${id}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) {
+    throw new Error('Failed to delete mandate');
+  }
+  return response.json();
+};
+
 const MandateTable: React.FC = () => {
-  const { data, error, isLoading } = useQuery<Mandate[]>({queryKey: ['get-mandates'], queryFn: fetchMandates, retry: 2});
+  const queryClient = useQueryClient();
+  const { data, error, isLoading } = useQuery<Mandate[]>({
+    queryKey: ['get-mandates'],
+    queryFn: fetchMandates,
+    retry: 2,
+  });
+
+  const { mutate: handleDelete, isPending: isDeleting } = useMutation({
+    mutationFn: deleteMandate,
+    onSuccess: () => {
+      toast({
+        title : "Success",
+        description : "Deleted successfully",
+        variant : "default"
+      })
+      queryClient.invalidateQueries({ queryKey: ['get-mandates'] }); // Refetch after delete
+      
+    },
+  });
 
   if (isLoading) {
-    return <GenericLoader/>
+    return <GenericLoader />;
   }
 
   if (error) {
@@ -49,8 +79,8 @@ const MandateTable: React.FC = () => {
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg  ">
-        <h4 className="text-lg text-gray-600 font-semibold mb-4">Recurring Payments Overview</h4>
+    <div className="overflow-x-auto rounded-lg">
+      <h4 className="text-lg text-gray-600 font-semibold mb-4">Recurring Payments Overview</h4>
       <table className="min-w-full text-sm border border-gray-300 rounded-lg text-left text-gray-700">
         <thead className="bg-gray-50 text-gray-600 uppercase text-xs tracking-wider">
           <tr>
@@ -59,6 +89,7 @@ const MandateTable: React.FC = () => {
             <th className="px-4 py-3 border">Payment Method</th>
             <th className="px-4 py-3 border">Repeat (Days)</th>
             <th className="px-4 py-3 border">Start Date</th>
+            <th className="px-4 py-3 border">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -89,6 +120,15 @@ const MandateTable: React.FC = () => {
                     })}
                   </span>
                 </div>
+              </td>
+              <td className="px-4 py-2">
+                <button
+                  onClick={() => handleDelete(mandate.id)}
+                  className="text-red-600 hover:text-red-800 transition"
+                  disabled={isDeleting}
+                >
+                  <FaTrash />
+                </button>
               </td>
             </tr>
           ))}
