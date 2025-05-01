@@ -3,6 +3,8 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { TransactionCategory, PaymentMethod } from "@prisma/client";
 
+
+
 export async function POST(req: NextRequest) {
     const { userId } = await auth();
     if (!userId) {
@@ -13,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     try {
         const { paymentMethod, paymentFor, amount, category } = await req.json();
-
+        
         if (!paymentFor || !paymentMethod || !amount || !category) {
             return NextResponse.json({
                 error: "Incomplete field"
@@ -48,6 +50,29 @@ export async function POST(req: NextRequest) {
         const user = await prisma.user.findUnique({
             where: { id: userId }
         });
+        const budget = user?.budget;
+        const now = new Date();
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const monthlyTransactions = await prisma.transactions.aggregate({
+            where : {
+                createdAt : {
+                    gte: startOfMonth
+                }
+            },
+            _sum : {
+                amount : true
+            }
+        });
+        if (
+            monthlyTransactions._sum?.amount !== null &&
+            budget !== undefined &&
+            budget !== 0 &&
+            monthlyTransactions._sum.amount > budget
+          ) {
+            return NextResponse.json({
+                error: "Monthly transaction limit exceeded the budget. Either remove budget or exceed it's limit"
+            }, { status: 403 });
+        }
 
         if (transactionCount >= 5 && !user?.isSubscribed) {
             return NextResponse.json({

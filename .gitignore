@@ -11,7 +11,7 @@
 !.yarn/versions
 env/
 logs.json
-
+todo.txt
 # testing
 /coverage
 

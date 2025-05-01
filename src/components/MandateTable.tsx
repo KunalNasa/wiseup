@@ -7,7 +7,7 @@ import GenericLoader from './skeletons/GenericLoader';
 import { toast } from '@/hooks/use-toast';
 
 type Mandate = {
-  id: string; // Added ID field
+  id: string;
   paymentFor: string;
   amount: number;
   paymentMethod: PaymentMethod;
