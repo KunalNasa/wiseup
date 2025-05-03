@@ -11,7 +11,7 @@ export default function Pricing() {
         <h2 className="text-5xl font-mitr font-semibold text-violet-600">Plans and Pricing</h2>
         <p className="text-center text-sm text-gray-700">Handle your monthly subscription and get detailed analysis of your spending with our pro plan.</p>
       </div>
-    <div  className="w-full my-10 flex lg:flex-row flex-col justify-center items-start">
+    <div  className="w-full my-10 flex lg:flex-row flex-col justify-center items-center">
       <div className="card m-10 border-2 flex flex-col gap-4 border-gray-800 rounded-2xl p-7">
         <h2 className="text-4xl text-gray-600 font-semibold">Basic</h2>
         <div>
@@ -34,7 +34,7 @@ export default function Pricing() {
         </Link>
       </div>
 
-      <div className="card m-10 border-2 flex flex-col gap-4 border-violet-500 shadow-2xl shadow-pink-400 rounded-2xl p-7">
+      <div className="card m-10 border-2 flex flex-col gap-4 border-violet-500 shadow-2xl shadow-violet-500/50 rounded-2xl p-7">
         <h2 className="text-4xl flex items-center gap-5 text-gradient font-semibold">Pro<span className="bg-gradient-to-br from-violet-600 via-violet-500 to-pink-500 py-1 px-5 rounded-full shadow-inner font-thin flex items-center gap-3 text-white text-sm shadow-pink-200"><span><FaFire/></span> Popular</span></h2>
         <div>
         <h3 className="text-4xl">$1</h3>
@@ -52,7 +52,7 @@ export default function Pricing() {
           <Tab>Manage Subscriptions</Tab>
         </ul>
         <Link href='/sign-in' className="mx-auto my-5 w-full">
-        <Button className="w-full flex items-center justify-center gap-2"><span><FaFire/></span> Get Pro</Button>
+        <Button className="w-full flex items-center justify-center gap-2"><span><FaFire/></span>Get Pro</Button>
         </Link>
       </div>
     </div>

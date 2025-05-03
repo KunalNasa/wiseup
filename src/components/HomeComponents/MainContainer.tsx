@@ -4,6 +4,7 @@ import SecondHome from './SecondHome'
 import KeyFeatures from './KeyFeatures'
 import ThirdHome from './ThirdHome'
 import Pricing from './Pricing'
+import FAQSection from './FaqSection'
 
 const MainContainer = () => {
   return (
@@ -13,6 +14,7 @@ const MainContainer = () => {
       <ThirdHome/>
       <KeyFeatures/>
       <Pricing/>
+      <FAQSection/>
     </div>
   )
 }

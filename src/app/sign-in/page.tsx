@@ -54,7 +54,7 @@ export default function SignIn() {
     }
   }
   return (
-    <div className="bg-[url(/auth-bg.jpg)] p-5 h-screen bg-cover">
+    <div className=" p-5 h-screen bg-cover">
 
       <Button onClick={() => router.replace('/')} className="flex items-center gap-2" variant="secondary"><span className="text-lg"><IoIosArrowRoundBack/></span> Back</Button>
     <div className="flex h-full my-auto items-center justify-center ">

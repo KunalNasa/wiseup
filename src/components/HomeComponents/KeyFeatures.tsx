@@ -1,93 +1,62 @@
-'use client'
+import React from 'react';
+import { BarChart3, Sparkles, PiggyBank, CalendarClock } from 'lucide-react';
+import FeatureCard from './FeatureCard';
 
-import React from 'react'
-import { features } from '@/helper/KeyFeatures'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
+const KeyFeatures = () => {
+  const features = [
+    {
+      title: "Interactive Visualizations",
+      description: "Transform complex financial data into beautiful, interactive charts that reveal spending patterns and growth opportunities at a glance.",
+      icon: <BarChart3 size={24} />,
+      color: "bg-primary-100 text-primary-700",
+      delay: 0,
+    },
+    {
+      title: "AI-Powered Insights",
+      description: "Let our smart AI analyze your transactions to find savings opportunities, unusual spending, and personalized financial advice.",
+      icon: <Sparkles size={24} />,
+      color: "bg-secondary-100 text-secondary-700",
+      delay: 100,
+    },
+    {
+      title: "Monthly Budget Tracking",
+      description: "Create custom budgets for different categories and track your progress with visual indicators that keep you accountable.",
+      icon: <PiggyBank size={24} />,
+      color: "bg-success-50 text-success-900",
+      delay: 200,
+    },
+    {
+      title: "Recurring Payments",
+      description: "Never miss a bill again. Set up and manage recurring payments with smart reminders and automatic categorization.",
+      icon: <CalendarClock size={24} />,
+      color: "bg-accent-100 text-accent-700",
+      delay: 300,
+    },
+  ];
 
-// this is how you use variants to make code clean, nothing else
-// const cardVariants = {
-//   offscreen: {
-// y: 100,
-// opacity: 0,
-//   },
-//   onscreen: {
-// y: 0,
-// opacity: 1,
-// transition: {
-//   type: 'spring',
-//   bounce: 0.4,
-//   duration: 0.8,
-// }
-
-//     },
-//   },
-// }
-
-export default function KeyFeatures() {
   return (
-    <div className='w-full bg-gray-50'>
-
-    <div
-      id="features"
-      className="w-9/12 mx-auto py-20 px-6 rounded-t-[2.5rem] my-10"
-      >
-      <h2 className="text-center text-5xl py-2 font-mitr font-bold text-violet-600 mb-8">
-        Why Choose WiseUp?
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2  gap-10">
-        {features.map((feature, index) => (
-          <Cards
-          feature={feature}
-          key={index}
-          />
-          
-        ))}
-      </div>
-    </div>
+    <section id='features' className="py-24 bg-neutral-50">
+      <div className="container mx-auto px-4">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-3xl font-mitr font-semibold md:text-4xl text-violet-600  mb-4">Powerful Features for Complete Financial Control</h2>
+          <p className="text-lg text-neutral-600">Everything you need to manage, analyze, and optimize your finances in one elegant platform.</p>
         </div>
-  )
-}
-
-function Cards({ feature }: {
-  feature: any
-}) {
-  return (
-    <div className=''>
-      <motion.div
-        className="p-[4px] h-full hover:shadow-2xl hover:shadow-pink-500 rounded-xl bg-gradient-to-br from-violet-600 via-violet-500 to-pink-500  "
-        initial={{
-          y: 100,
-          opacity: 0,
-        }}
-        whileInView={{
-          y: 0,
-          opacity: 1,
-          transition: {
-            type: 'spring',
-            bounce: 0.4,
-            duration: 0.8,
-          }
-        }}
-        viewport={{ once: true, amount: 0.6 }}
-      // variants={cardVariants}
-      >
-        <div className='bg-white h-full rounded-xl p-6'>
-
-          <div className="flex  justify-center mb-4">
-            <Image
-              width={50}
-              height={50}
-              src={feature.logoSrc}
-              alt={`${feature.title} logo`}
-              className="w-12 h-12"
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feature, index) => (
+            <FeatureCard
+              key={index}
+              title={feature.title}
+              description={feature.description}
+              icon={feature.icon}
+              colorClass={feature.color}
+              delay={feature.delay}
             />
-          </div>
-          <h3 className="text-xl text-gray-700 font-semibold mb-4">{feature.title}</h3>
-          <p className="text-gray-700">{feature.description}</p>
+          ))}
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </section>
+  );
+};
 
-  )
-}
+export default KeyFeatures;

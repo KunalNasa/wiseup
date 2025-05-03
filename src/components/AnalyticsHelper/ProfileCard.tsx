@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Wallet } from "lucide-react";
 import { statsResponse } from "@/types/stats.type";
 import { BsStars } from "react-icons/bs";
+import Link from "next/link";
 
 export default function ProfileCard({ data, loading }: { data: statsResponse | null, loading: boolean }) {
    const { user } = useUser();
@@ -72,8 +73,7 @@ export default function ProfileCard({ data, loading }: { data: statsResponse | n
          <div className="bg-white p-5 rounded-lg">
             <h3 className="flex items-center gap-4 text-xl font-semibold text-gray-700"> <span><BsStars className="text-violet-600"/> </span>Smart Analysis</h3>
             <p className="py-1">Optimize your spending with our detailed AI analysis. </p>
-            <button className="bg-violet-500 rounded-md text-white py-1 px-4 mt-2 flex items-center gap-2" disabled={true}><span><BsStars/> </span>Analyze</button>
-            <p className="text-xs py-2 text-gray-500">coming soon...</p>
+            <Link href='/ai-analysis' className="bg-violet-500 rounded-md text-white py-1 px-4 my-4 w-fit flex items-center gap-2"><span><BsStars/> </span>Analyze</Link>
          </div>
       </div>
    );
