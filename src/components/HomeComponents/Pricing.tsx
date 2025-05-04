@@ -8,7 +8,7 @@ export default function Pricing() {
   return (
     <div id="pricing" className="flex flex-col">
       <div className="mx-auto flex flex-col gap-2 items-center justify-center my-10 text-center w-11/12 lg:w-[40%]">
-        <h2 className="text-5xl font-mitr font-semibold text-violet-600">Plans and Pricing</h2>
+        <h2 className="text-4xl font-mitr font-semibold text-violet-600">Plans and Pricing</h2>
         <p className="text-center text-sm text-gray-700">Handle your monthly subscription and get detailed analysis of your spending with our pro plan.</p>
       </div>
     <div  className="w-full my-10 flex lg:flex-row flex-col justify-center items-center">
